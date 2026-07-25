@@ -1,0 +1,965 @@
+{
+  "batch_range": "011-020",
+  "systems": {
+    "attributes": [
+      {
+        "chapter": 11,
+        "character": "雪帝 (林天浩)",
+        "context": "进入地狱级扭曲丛林第三关卡，面对四只扭曲树人王",
+        "level": 9,
+        "class": "弓箭手",
+        "stats": {
+          "hp": 30000,
+          "mp": 50,
+          "attack": 0,
+          "magic_power": 0,
+          "armor": 0,
+          "magic_resist": 0,
+          "attack_speed": 2.63,
+          "move_speed": 0,
+          "phys_pen": "0%",
+          "mag_pen": "0%",
+          "special": ["惊雷弓+300攻击力", "天罚之手将生命值转化为真实伤害"],
+          "free_points": 0,
+          "luck": "未知"
+        },
+        "talent": "天罚之手 (超神级)",
+        "skills": ["普攻增幅 (增加10%攻击距离)", "雷电跳跃", "复苏"],
+        "equipment": ["惊雷弓 (白银级)", "丛林长弓", "残暴之靴 (1%暴击率)", "黑铁级树人套装"],
+        "raw_text": "目前这个伤害，大部分还是林天浩天罚之手带来的。惊雷弓增加的三百点攻击力"
+      },
+      {
+        "chapter": 12,
+        "character": "雪帝 (林天浩)",
+        "context": "单刷九头蛇柏，换用丛林长弓吸血回复",
+        "level": 9,
+        "class": "弓箭手",
+        "stats": {
+          "hp": 30000,
+          "mp": 50,
+          "attack": 0,
+          "magic_power": 0,
+          "armor": 0,
+          "magic_resist": 0,
+          "attack_speed": 2.63,
+          "move_speed": 0,
+          "phys_pen": "0%",
+          "mag_pen": "0%",
+          "special": ["丛林长弓附带吸血效果", "丛林长弓加生命值"],
+          "free_points": 0,
+          "luck": "未知"
+        },
+        "talent": "天罚之手 (超神级)",
+        "skills": ["复苏 (每秒回血)", "枯木逢春 (新学)"],
+        "equipment": ["丛林长弓", "残暴之靴 (1%暴击率)"],
+        "raw_text": "他现在三万出头的生命值，也只能够抗住十几次的攻击。+50。+16。+16。林天浩的生命值开始缓慢恢复"
+      },
+      {
+        "chapter": 13,
+        "character": "雪帝 (林天浩)",
+        "context": "首通副本奖励结算后，分配50自由属性点到攻速",
+        "level": 9,
+        "class": "弓箭手",
+        "stats": {
+          "hp": 30000,
+          "mp": 50,
+          "attack": 0,
+          "magic_power": 0,
+          "armor": 0,
+          "magic_resist": 0,
+          "attack_speed": 3.63,
+          "move_speed": 0,
+          "phys_pen": "0%",
+          "mag_pen": "0%",
+          "special": ["攻速从2.63提升至3.63"],
+          "free_points": 0,
+          "luck": "未知"
+        },
+        "talent": "天罚之手 (超神级)",
+        "skills": ["枯木逢春 (2星)"],
+        "equipment": ["惊雷弓 (白银级，装备榜第2)", "九头盾 (青铜级，装备榜第3)", "九头护肩 (青铜级，装备榜第4)", "九头披风 (青铜级，装备榜第5)"],
+        "raw_text": "首通副本奖励的五十个自由属性点，林天浩全部加在了攻速上。攻速从2.63提升到了3.63。"
+      },
+      {
+        "chapter": 15,
+        "character": "雪帝 (林天浩)",
+        "context": "对战暴怒的黄皮子，被灵魂摄取命中后切换黑铁树人套装",
+        "level": 9,
+        "class": "弓箭手",
+        "stats": {
+          "hp": 30000,
+          "mp": 50,
+          "attack": 0,
+          "magic_power": 0,
+          "armor": 0,
+          "magic_resist": 0,
+          "attack_speed": 2.41,
+          "move_speed": 0,
+          "phys_pen": "0%",
+          "mag_pen": "0%",
+          "special": ["灵魂摄取虚弱导致攻速从3.63降至2.41", "黑铁树人套装: 每秒回血200(全套)/100(换武器)", "黑铁树人套装: 反弹20%伤害", "黑铁树人套装: 韧性+10%", "复苏技能+套装=每秒回血180点", "总生命值约30000+"],
+          "free_points": 0,
+          "luck": "未知"
+        },
+        "talent": "天罚之手 (超神级)",
+        "skills": ["复苏", "枯木逢春 (2星)"],
+        "equipment": ["黑铁级树人套装 (全套13件)", "惊雷弓"],
+        "raw_text": "黑铁树人套装附带的套装属性比精英级树人套装更加离谱。每秒能够恢复两百点生命值，不仅如此，反弹的伤害还是百分之二十。除此之外，还有第三个套装效果，那就是韧性增加10%。"
+      },
+      {
+        "chapter": 16,
+        "character": "雪帝 (林天浩)",
+        "context": "被控魂术命中，切换盾牌抗伤害",
+        "level": 9,
+        "class": "弓箭手",
+        "stats": {
+          "hp": 30000,
+          "mp": 50,
+          "attack": 0,
+          "magic_power": 0,
+          "armor": 0,
+          "magic_resist": 0,
+          "attack_speed": 0,
+          "move_speed": 0,
+          "phys_pen": "0%",
+          "mag_pen": "0%",
+          "special": ["被控魂术后被打掉两万血量才摆脱"],
+          "free_points": 0,
+          "luck": "未知"
+        },
+        "talent": "天罚之手 (超神级)",
+        "skills": [],
+        "equipment": ["黑铁级树人套装 (切换盾牌)"],
+        "raw_text": "林天浩也足足被打掉了两万血量才惊险摆脱控魂术。"
+      },
+      {
+        "chapter": 18,
+        "character": "雪帝 (林天浩)",
+        "context": "击杀黄皮子后，10自由属性点全加蓝量",
+        "level": 9,
+        "class": "弓箭手",
+        "stats": {
+          "hp": 30000,
+          "mp": 100,
+          "attack": 0,
+          "magic_power": 0,
+          "armor": 0,
+          "magic_resist": 0,
+          "attack_speed": 3.63,
+          "move_speed": 0,
+          "phys_pen": "0%",
+          "mag_pen": "0%",
+          "special": ["蓝量从50提升至100"],
+          "free_points": 0,
+          "luck": "未知"
+        },
+        "talent": "天罚之手 (超神级)",
+        "skills": ["无敌金身 (1星，新学)"],
+        "equipment": [],
+        "raw_text": "十个自由属性点，林天浩全部加在蓝量上，蓝量提升到了一百。"
+      },
+      {
+        "chapter": 19,
+        "character": "雪帝 (林天浩)",
+        "context": "升到10级，5自由属性点加移速；刷扭曲树人收集装备后",
+        "level": 10,
+        "class": "弓箭手",
+        "stats": {
+          "hp": 60000,
+          "mp": 100,
+          "attack": 0,
+          "magic_power": 0,
+          "armor": 0,
+          "magic_resist": 0,
+          "attack_speed": 3.63,
+          "move_speed": 0.5,
+          "phys_pen": "0%",
+          "mag_pen": "0%",
+          "special": ["移速提升0.5", "基础生命值突破五万", "黑铁树人套装加一万多生命值", "总生命值六万多", "不计算惊雷弓攻击力，单生命值真实伤害足以秒杀石甲虫"],
+          "free_points": 0,
+          "luck": "未知"
+        },
+        "talent": "天罚之手 (超神级)",
+        "skills": ["普攻增幅", "雷电跳跃", "复苏", "枯木逢春 (2星)", "无敌金身 (1星)"],
+        "equipment": ["惊雷弓 (白银级)", "黑铁级树人套装", "残暴之靴"],
+        "raw_text": "五个自由属性点加上去，林天浩的移速提升了0.5。在刷完扭曲丛林收集装备后，自身生命值就已经突破五万。再加上黑铁树人套装带来的一万多生命值的加持，他现在总生命值已经有六万多。"
+      },
+      {
+        "chapter": 11,
+        "character": "浮屠盾山",
+        "context": "向公会成员展示自己的树人套装属性",
+        "level": 10,
+        "class": "盾战士",
+        "stats": {
+          "hp": 5800,
+          "mp": 0,
+          "attack": 0,
+          "magic_power": 0,
+          "armor": 0,
+          "magic_resist": 0,
+          "attack_speed": 0,
+          "move_speed": 0,
+          "phys_pen": "0%",
+          "mag_pen": "0%",
+          "special": ["总生命值加了五千八", "护甲和魔抗加的都高", "精英级树人套装(13件)", "套装附带特性"],
+          "free_points": 0,
+          "luck": "未知"
+        },
+        "talent": "未知",
+        "skills": [],
+        "equipment": ["精英级树人套装", "两件黑铁级装备"],
+        "raw_text": "总生命值加了五千八，护甲和魔抗加的都这么高，还有这套装附带的特性..."
+      }
+    ],
+    "talents": [
+      {
+        "chapter": 11,
+        "name": "天罚之手",
+        "tier": "超神级",
+        "tier_en": "ChaoShen",
+        "star": 2,
+        "effects": [
+          {
+            "type": "真实伤害",
+            "description": "普攻附带基于生命值上限的真实伤害",
+            "description_en": "Basic attacks deal bonus true damage based on max HP"
+          },
+          {
+            "type": "生命叠加",
+            "description": "每次普攻永久增加生命值上限",
+            "description_en": "Each basic attack permanently increases max HP"
+          }
+        ],
+        "mastery_exp": "接近三星 (需十万次普攻)",
+        "conditions": "超神级唯一隐藏天赋，初始1星，可通过普攻次数升星",
+        "owner": "雪帝 (林天浩)",
+        "raw_text": "这个伤害，大部分还是林天浩天罚之手带来的。有超神级天赋，林天浩有十足的把握超越逐梦烟雪。"
+      },
+      {
+        "chapter": 18,
+        "name": "影杀的神级天赋",
+        "tier": "神级",
+        "tier_en": "Shen",
+        "star": 0,
+        "effects": [
+          {
+            "type": "刺客天赋",
+            "description": "神级刺客天赋，具体效果未详述",
+            "description_en": "God-tier assassin talent, specific effects not detailed"
+          }
+        ],
+        "mastery_exp": "未知",
+        "conditions": "神级天赋，配合圣级隐藏职业",
+        "owner": "影杀",
+        "raw_text": "影杀！！这可是前世一个赫赫有名的神级刺客！没错，他是一位拥有神级天赋的刺客"
+      }
+    ],
+    "equipment": [
+      {
+        "chapter": 11,
+        "name": "惊雷弓",
+        "name_en": "Thunder Bow",
+        "tier": "白银",
+        "tier_en": "Silver",
+        "slot": "武器",
+        "requirements": "未知",
+        "stats": {"攻击力": 300},
+        "set_name": null,
+        "set_bonuses": [],
+        "special_effects": ["雷电跳跃 (击杀后可跳跃伤害附近敌人)"],
+        "raw_text": "惊雷弓增加的三百点攻击力"
+      },
+      {
+        "chapter": 11,
+        "name": "精英级树人套装",
+        "name_en": "Elite Tree Person Set",
+        "tier": "精英",
+        "tier_en": "Elite",
+        "slot": "套装 (13件)",
+        "requirements": "10级",
+        "stats": {"生命值": 5800, "护甲": 0, "魔抗": 0},
+        "set_name": "树人套装",
+        "set_bonuses": ["附带特殊套装特性"],
+        "special_effects": ["高额护甲", "高额魔抗", "套装附带特性"],
+        "raw_text": "总生命值加了五千八，护甲和魔抗加的都这么高，还有这套装附带的特性"
+      },
+      {
+        "chapter": 11,
+        "name": "黑铁级树人套装",
+        "name_en": "Black Iron Tree Person Set",
+        "tier": "黑铁",
+        "tier_en": "BlackIron",
+        "slot": "套装 (13件，含盾牌)",
+        "requirements": "10级 (首通可无视等级限制)",
+        "stats": {"生命值": 10000},
+        "set_name": "树人套装",
+        "set_bonuses": ["每秒恢复200点生命值 (全套)", "反弹20%伤害", "韧性+10%", "换下主武器后每秒回血降至100"],
+        "special_effects": ["最契合盾战士", "首通无等级限制可直接使用"],
+        "raw_text": "黑铁级树人套装，除了主武器林天浩倒是都可以使用，尤其是他自己首通的原因，不受等级限制，可直接使用。"
+      },
+      {
+        "chapter": 12,
+        "name": "丛林长弓",
+        "name_en": "Jungle Longbow",
+        "tier": "未知",
+        "tier_en": "Unknown",
+        "slot": "武器",
+        "requirements": "未知",
+        "stats": {},
+        "set_name": null,
+        "set_bonuses": [],
+        "special_effects": ["增加生命值", "附带吸血效果"],
+        "raw_text": "丛林长弓能够加生命值，还有吸血。"
+      },
+      {
+        "chapter": 13,
+        "name": "黄金权杖",
+        "name_en": "Gold Scepter",
+        "tier": "黄金",
+        "tier_en": "Gold",
+        "slot": "武器 (召唤权杖)",
+        "requirements": "未知",
+        "stats": {},
+        "set_name": null,
+        "set_bonuses": [],
+        "special_effects": ["召唤六只10级黑铁boss"],
+        "raw_text": "第一名:黄金权杖（黄金级）。逐梦烟雪的。是一柄召唤权杖，里面附带的效果只有一个，那就是召唤六只十级的黑铁boss。"
+      },
+      {
+        "chapter": 13,
+        "name": "九头盾",
+        "name_en": "Hydra Shield",
+        "tier": "青铜",
+        "tier_en": "Bronze",
+        "slot": "盾牌",
+        "requirements": "首通九头蛇柏掉落",
+        "stats": {},
+        "set_name": "九头套装",
+        "set_bonuses": [],
+        "special_effects": [],
+        "raw_text": "第三名:九头盾（青铜级）。"
+      },
+      {
+        "chapter": 13,
+        "name": "九头护肩",
+        "name_en": "Hydra Pauldrons",
+        "tier": "青铜",
+        "tier_en": "Bronze",
+        "slot": "护肩",
+        "requirements": "首通九头蛇柏掉落",
+        "stats": {},
+        "set_name": "九头套装",
+        "set_bonuses": [],
+        "special_effects": [],
+        "raw_text": "第四名:九头护肩（青铜级）。"
+      },
+      {
+        "chapter": 13,
+        "name": "九头披风",
+        "name_en": "Hydra Cloak",
+        "tier": "青铜",
+        "tier_en": "Bronze",
+        "slot": "披风",
+        "requirements": "首通九头蛇柏掉落",
+        "stats": {},
+        "set_name": "九头套装",
+        "set_bonuses": [],
+        "special_effects": [],
+        "raw_text": "第五名:九头披风（青铜级）。"
+      },
+      {
+        "chapter": 13,
+        "name": "残暴之靴",
+        "name_en": "Brutal Boots",
+        "tier": "未知",
+        "tier_en": "Unknown",
+        "slot": "鞋子",
+        "requirements": "未知",
+        "stats": {"暴击率": 0.01},
+        "set_name": null,
+        "set_bonuses": [],
+        "special_effects": ["1%暴击率"],
+        "raw_text": "更换武器后，暴击率只有残暴之靴的百分之一。"
+      },
+      {
+        "chapter": 19,
+        "name": "黄金级长弓 (定制)",
+        "name_en": "Custom Gold-tier Longbow",
+        "tier": "黄金",
+        "tier_en": "Gold",
+        "slot": "武器",
+        "requirements": "无佩戴要求",
+        "stats": {},
+        "set_name": null,
+        "set_bonuses": [],
+        "special_effects": ["无佩戴要求", "定制级武器", "可通过冰焰魔矿升级至铂金级"],
+        "raw_text": "任务奖励:你将获得一柄无佩戴要求的黄金级长弓。黄金级武器已经远超现阶段玩家了，更何况是铂金级了。"
+      }
+    ],
+    "skills": [
+      {
+        "chapter": 12,
+        "name": "枯木逢春",
+        "name_en": "Withered Tree Reviving Spring",
+        "star": 1,
+        "requirements": "无 (被动技能，学习即可)",
+        "effects": [
+          {
+            "description": "当你的生命值降低到百分之十时，你将会立刻恢复百分之十的生命值",
+            "description_en": "When your HP drops to 10%, immediately recover 10% of max HP"
+          }
+        ],
+        "cost": "无",
+        "cooldown": "24小时",
+        "mastery_exp": "0/10 (献祭技能书提升，每献祭1本技能书+1熟练度，特殊技能书可+多点)",
+        "raw_text": "枯木逢春（被动技能）:1星。效果:当你的生命值降低到百分之十时，你将会立刻恢复百分之十的生命值。冷却:24小时。消耗:无。熟练度:0/10（该熟练度计算方式为献祭技能书，每献祭一本技能书，可获得1点熟练度，某些特殊技能可获得多点熟练度。）"
+      },
+      {
+        "chapter": 13,
+        "name": "枯木逢春",
+        "name_en": "Withered Tree Reviving Spring",
+        "star": 2,
+        "requirements": "献祭10本技能书升星",
+        "effects": [
+          {
+            "description": "当你的生命值降低到百分之十时，你将会立刻恢复百分之二十的生命值",
+            "description_en": "When your HP drops to 10%, immediately recover 20% of max HP"
+          }
+        ],
+        "cost": "无",
+        "cooldown": "12小时",
+        "mastery_exp": "0/100 (献祭技能书提升)",
+        "raw_text": "枯木逢春（被动技能）:2星。效果:当你的生命值降低到百分之十时，你将会立刻恢复百分之二十的生命值。冷却:12小时。消耗:无。熟练度:0/100（该熟练度计算方式为献祭技能，每献祭一本技能书，可获得1点熟练度，某些特殊技能可获得多点熟练度。）"
+      },
+      {
+        "chapter": 18,
+        "name": "疾跑",
+        "name_en": "Sprint",
+        "star": 1,
+        "requirements": "弓箭手职业可学习",
+        "effects": [
+          {
+            "description": "释放后你的移动速度提升0.5，持续时间十秒",
+            "description_en": "Increases movement speed by 0.5 for 10 seconds"
+          }
+        ],
+        "cost": "10MP",
+        "cooldown": "5分钟",
+        "mastery_exp": "0/100 (使用1次+1熟练度)",
+        "raw_text": "疾跑:1星。效果:释放后你的移动速度提升0.5，持续时间十秒。冷却:5分钟。消耗:10MP。熟练度:0/100。"
+      },
+      {
+        "chapter": 18,
+        "name": "无敌金身",
+        "name_en": "Invincible Golden Body",
+        "star": 1,
+        "requirements": "弓箭手职业可学习，需100MP才可释放",
+        "effects": [
+          {
+            "description": "你将会进入无敌状态，持续时间0.5秒",
+            "description_en": "Enter invincible state for 0.5 seconds"
+          }
+        ],
+        "cost": "100MP",
+        "cooldown": "24小时",
+        "mastery_exp": "0/10",
+        "raw_text": "无敌金身:1星。效果:你将会进入无敌状态，持续时间0.5秒。冷却:24小时。消耗:100MP。熟练度:0/10。"
+      },
+      {
+        "chapter": 18,
+        "name": "普攻增幅",
+        "name_en": "Basic Attack Amplification",
+        "star": 0,
+        "requirements": "弓箭手自带",
+        "effects": [
+          {
+            "description": "普攻距离比正常弓箭手远百分之十",
+            "description_en": "Basic attack range is 10% farther than normal archers"
+          }
+        ],
+        "cost": "无 (被动)",
+        "cooldown": "无",
+        "mastery_exp": "未知",
+        "raw_text": "因为普攻增幅这个技能的原因，他的普攻距离要比正常的弓箭手远百分之十。"
+      },
+      {
+        "chapter": 11,
+        "name": "雷电跳跃",
+        "name_en": "Lightning Leap",
+        "star": 0,
+        "requirements": "惊雷弓附带技能",
+        "effects": [
+          {
+            "description": "击杀目标后，雷电跳跃伤害至附近敌人",
+            "description_en": "After killing a target, lightning leaps to damage nearby enemies"
+          }
+        ],
+        "cost": "无 (武器附带)",
+        "cooldown": "无",
+        "mastery_exp": "未知",
+        "raw_text": "雷电跳跃的伤害"
+      },
+      {
+        "chapter": 11,
+        "name": "复苏",
+        "name_en": "Recovery",
+        "star": 0,
+        "requirements": "未知",
+        "effects": [
+          {
+            "description": "持续恢复生命值",
+            "description_en": "Continuously restores HP over time"
+          }
+        ],
+        "cost": "无",
+        "cooldown": "无",
+        "mastery_exp": "未知",
+        "raw_text": "在复苏这个技能的加持下，林天浩现在的生命值已经恢复到了满值。"
+      }
+    ],
+    "classes": [
+      {
+        "chapter": 20,
+        "name": "隐藏职业",
+        "name_en": "Hidden Class",
+        "type": "hidden",
+        "hidden_tier": "未知",
+        "weapon_type": "未知",
+        "advancement_conditions": "未知",
+        "raw_text": "全服通告，恭喜玩家狂战刀锋第一个获得隐藏职业，特此通告，望广大玩家再接再厉。"
+      }
+    ],
+    "monsters": [
+      {
+        "chapter": 11,
+        "name": "扭曲树人王",
+        "name_en": "Twisted Treant King",
+        "tier": "黑铁",
+        "tier_en": "BlackIron",
+        "level": 10,
+        "hp": 186800,
+        "attack": 598,
+        "skills": ["召唤树人", "复苏", "藤条束缚", "荆棘之盾", "藤条囚笼"],
+        "drops": ["技能书", "黑铁级树人套装部件"],
+        "raw_text": "扭曲树人王（黑铁boss）:10级。生命值:186800。攻击:598。技能:召唤树人，复苏，藤条束缚，荆棘之盾，藤条囚笼。"
+      },
+      {
+        "chapter": 11,
+        "name": "九头蛇柏",
+        "name_en": "Hydra Cypress",
+        "tier": "青铜",
+        "tier_en": "Bronze",
+        "level": 10,
+        "hp": 1528000,
+        "attack": 1358,
+        "skills": ["枯木逢春"],
+        "drops": ["黑铁级树人套装+1", "技能书+13", "树人之心+4", "精英级装备+35", "金币+350", "自由属性点+50", "任务卷轴+1", "经验值+31280"],
+        "raw_text": "九头蛇柏（青铜）:10级。生命值:1528000/1528000。攻击:1358。技能:枯木逢春。"
+      },
+      {
+        "chapter": 12,
+        "name": "九头蛇柏",
+        "name_en": "Hydra Cypress",
+        "tier": "青铜",
+        "tier_en": "Bronze",
+        "level": 10,
+        "hp": 1528000,
+        "attack": 1358,
+        "skills": ["枯木逢春 (生命值降至10%时恢复至满血)", "藤蔓普攻 (全域范围，不可走位躲闪普攻)"],
+        "drops": ["弱点: 九根血色藤蔓上的暗红色脑袋"],
+        "raw_text": "九头蛇柏的藤蔓，似乎包含了这整个关卡，换而言之，他没可能通过走位躲闪普攻。九头蛇柏身上弥漫出绿光，生命值竟然直接从百分之十恢复到了满血状态。"
+      },
+      {
+        "chapter": 14,
+        "name": "吟游诗人",
+        "name_en": "Bard (Wandering Poet)",
+        "tier": "黑铁",
+        "tier_en": "BlackIron",
+        "level": 15,
+        "hp": 0,
+        "attack": 0,
+        "skills": [],
+        "drops": ["可变化为暴怒的黄皮子"],
+        "raw_text": "吟游诗人:15级。生命值: ？？？攻击:？？？技能:？？？注:这是游荡在新手村附近的吟游诗人，或许你能够从他身上得到意想不到的好处。"
+      },
+      {
+        "chapter": 14,
+        "name": "暴怒的黄皮子",
+        "name_en": "Enraged Weasel Demon",
+        "tier": "黑铁",
+        "tier_en": "BlackIron",
+        "level": 15,
+        "hp": 1253000,
+        "attack": 813,
+        "skills": ["黄山幻术", "移形换影", "霸体", "狂暴", "灵魂摄取", "控魂术"],
+        "drops": ["技能书45本", "装备65件", "金币+500", "自由属性点+10", "任务卷轴+1", "神秘的钥匙+1", "经验值+15495"],
+        "raw_text": "暴怒的黄皮子（黑铁）:15级。生命值:1012500/1253000。攻击:813。技能:黄山幻术，移形换影，霸体，狂暴，灵魂摄取，控魂术。"
+      },
+      {
+        "chapter": 15,
+        "name": "暴怒的黄皮子",
+        "name_en": "Enraged Weasel Demon",
+        "tier": "黑铁",
+        "tier_en": "BlackIron",
+        "level": 15,
+        "hp": 1253000,
+        "attack": 813,
+        "skills": ["霸体 (免除一切控制，不包含诅咒和压制)", "狂暴 (牺牲双抗提升大量输出，部分boss输出可增10倍)", "黄山幻术 (幻术类技能，与心性有关)", "灵魂摄取 (强行剥夺目标灵魂，进入虚弱状态并持续掉血24小时)", "控魂术 (有几率控制敌方灵魂并操控其战斗，持续时间24小时)"],
+        "drops": [],
+        "raw_text": "霸体，免除一切控制，不包含诅咒和压制类特殊技能。狂暴，牺牲一定双抗，提升大量输出。有些强大的boss，狂暴状态下，输出增加十倍的都有。灵魂摄取，能够强行剥夺对手的一定灵魂，被剥夺灵魂的敌方单位会进入虚弱状态，并且持续掉血...持续掉血的时间是二十四小时！控魂术，有几率控制敌方单位的灵魂，从而操控其战斗。这个控魂术的持续时间同样是二十四小时。"
+      },
+      {
+        "chapter": 19,
+        "name": "扭曲树人",
+        "name_en": "Twisted Treant",
+        "tier": "普通",
+        "tier_en": "Normal",
+        "level": 10,
+        "hp": 0,
+        "attack": 0,
+        "skills": [],
+        "drops": [],
+        "raw_text": "普通的扭曲树人，连林天浩一下普攻都没有抗住就倒在林天浩的手里。暴击伤害-2288。"
+      },
+      {
+        "chapter": 20,
+        "name": "石甲虫",
+        "name_en": "Stone Beetle",
+        "tier": "普通",
+        "tier_en": "Normal",
+        "level": 8,
+        "hp": 1200,
+        "attack": 52,
+        "skills": ["破甲 (打掉武器耐磨度)", "石盾"],
+        "drops": [],
+        "raw_text": "石甲虫（普通）:8级。生命值:1200/1200。攻击:52。技能:破甲，石盾。"
+      }
+    ],
+    "territories": [
+      {
+        "chapter": 11,
+        "name": "浮屠俱乐部",
+        "name_en": "Futu Club",
+        "type": "公会",
+        "leader": "浮屠神狼 (会长), 浮屠盾山 (少东家)",
+        "members": 0,
+        "bonuses": {},
+        "construction_value": "未知",
+        "raw_text": "浮屠神狼点点头，'好，我知道了。'浮屠盾山点点头，'神狼会长，组织一下，让还在新手村的成员去刷一下扭曲树人的副本。'"
+      },
+      {
+        "chapter": 17,
+        "name": "逐梦俱乐部",
+        "name_en": "Zhumeng Club",
+        "type": "公会",
+        "leader": "逐梦烟雪 (老板)",
+        "members": 0,
+        "bonuses": {},
+        "construction_value": "未知",
+        "raw_text": "逐梦俱乐部！逐梦烟雪下线召开紧急会议。会议里有三个分析师还有李海涛这位总经理。"
+      },
+      {
+        "chapter": 17,
+        "name": "修罗公会",
+        "name_en": "Xiuluo Guild",
+        "type": "公会",
+        "leader": "未知",
+        "members": 0,
+        "bonuses": {},
+        "construction_value": "未知",
+        "raw_text": "修罗公会诚邀雪帝加入，年薪一亿一千万，进来就是副会长，其他待遇可谈。"
+      },
+      {
+        "chapter": 17,
+        "name": "狂战公会",
+        "name_en": "Kuangzhan Guild",
+        "type": "公会",
+        "leader": "未知",
+        "members": 0,
+        "bonuses": {},
+        "construction_value": "未知",
+        "raw_text": "狂战公会诚邀雪帝加入，年薪一亿一千万，进来就是副会长，赠送豪华别墅，其他待遇可谈。"
+      },
+      {
+        "chapter": 18,
+        "name": "龙国战部特战团",
+        "name_en": "Dragon Country War Department Special Combat Group",
+        "type": "公会/特战团",
+        "leader": "未知",
+        "members": 0,
+        "bonuses": {},
+        "construction_value": "未知",
+        "raw_text": "影杀郑重其事的问道:'雪帝，我们战部要在游戏里面组建一个特战团，想要邀请你的加入。'"
+      }
+    ],
+    "pk_economy": [
+      {
+        "chapter": 11,
+        "category": "economy",
+        "mechanic": "精英级装备市场价约两万一件，十级精英装备套装单独卖价值四十万左右",
+        "mechanic_en": "Elite equipment market price ~20,000 per piece. A full level 10 elite equipment set sells for about 400,000 individually.",
+        "values": {"精英装备单价": "~2万", "树人套装(13件)": "~40万", "实际成交价": "40万(含带到10级服务)", "原报价": "30万+2件黑铁装备"},
+        "raw_text": "一件10级的精英级装备，价值就在两万左右。这十三件，单独卖都能价值四十万。本来是三十万的，我加了这两件黑铁级的装备。"
+      },
+      {
+        "chapter": 11,
+        "category": "economy",
+        "mechanic": "浮屠俱乐部对雪帝的估价：年薪一千万被拒，综合评估一亿到两亿年薪",
+        "mechanic_en": "Futu Club's valuation of Xue Di: 10 million/year rejected. Comprehensive assessment: 100-200 million/year salary.",
+        "values": {"初始报价": "1千万/年", "技术估价": "1亿/年", "综合估价(含公会影响力)": "1.5亿-2亿/年", "浮屠神狼会长年薪": "2千多万/年", "端游传奇射手年薪": "8千万+/年"},
+        "raw_text": "少东家，你给我们看这段视频是什么意思？'让你们帮忙分析一下，如果我要挖他，多少钱合适，之前我出价了年薪千万，他没有丝毫犹豫就拒绝了'...这样的技术，绝对不是籍籍无名之辈，他可能在端游时代就是年薪千万，甚至更高的存在。一亿年薪不为过...甚至可以给到一亿五千万到两亿之间。"
+      },
+      {
+        "chapter": 17,
+        "category": "economy",
+        "mechanic": "全服喇叭费用：10金币/条。各大俱乐部通过全服喇叭竞相报价招募雪帝",
+        "mechanic_en": "Server-wide speaker costs 10 gold per use. Major clubs compete to recruit Xue Di via server-wide speakers.",
+        "values": {"全服喇叭费用": "10金币/条", "逐梦俱乐部报价": "年薪1亿", "修罗公会报价": "年薪1.1亿+副会长", "狂战公会报价": "年薪1.1亿+副会长+豪华别墅"},
+        "raw_text": "然而，现阶段一个全服喇叭十金币！全服喇叭:逐梦俱乐部诚邀雪帝加入，年薪一个亿，其他待遇可谈！全服喇叭:修罗公会诚邀雪帝加入，年薪一亿一千万，进来就是副会长，其他待遇可谈。全服喇叭:狂战公会诚邀雪帝加入，年薪一亿一千万，进来就是副会长，赠送豪华别墅，其他待遇可谈。"
+      },
+      {
+        "chapter": 14,
+        "category": "pk",
+        "mechanic": "玩家PK：野外击杀玩家可掉落装备；影杀被林天浩一箭秒杀(-1352)，掉落装备",
+        "mechanic_en": "Player PK: Killing players in the wild can drop equipment. Ying Sha was one-shot killed by Lin Tianhao (-1352), dropping equipment.",
+        "values": {"伤害": 1352, "结果": "秒杀", "掉落": "有装备掉落"},
+        "raw_text": "-1352。这刺客玩家被一箭秒杀，可惜的是，这次他身上并没有掉落装备。"
+      },
+      {
+        "chapter": 17,
+        "category": "pk",
+        "mechanic": "死亡惩罚：影杀被林天浩击杀两次+被黄皮子击杀一次，等级从高级掉落至5级",
+        "mechanic_en": "Death penalty: Ying Sha was killed twice by Lin Tianhao and once by the weasel demon, dropping from higher level to level 5.",
+        "values": {"阵亡次数": 3, "当前等级": 5, "死亡原因": "林天浩击杀x2，黄皮子击杀x1"},
+        "raw_text": "因为接二连三的掉等级，现在的影杀只有五级。"
+      },
+      {
+        "chapter": 20,
+        "category": "pk",
+        "mechanic": "对立任务：玩家可接取互相对立的任务，形成PvP对抗",
+        "mechanic_en": "Opposing quests: Players can accept mutually opposing quests, creating PvP confrontation scenarios.",
+        "values": {},
+        "raw_text": "我的任务是协助那两个npc击杀艾尔伏斯，再拿回冰焰魔矿。'闻听这话，影杀有些诧异，'对立任务？'"
+      }
+    ],
+    "special_items": [
+      {
+        "chapter": 13,
+        "name": "任务卷轴 (摧毁新手村)",
+        "name_en": "Quest Scroll (Destroy Novice Village)",
+        "item_type": "任务卷轴",
+        "description": "来自九头蛇柏掉落的诸神任务卷轴，要求击杀新手村所有NPC并摧毁祭坛，阻止旱魃出世",
+        "effects": [
+          "任务要求: 击杀新手村里的所有npc，并摧毁祭坛，让所有的异世界冒险者只能在主城降生，永远都无法再进入新手村",
+          "任务惩罚: 无",
+          "任务奖励: 未知"
+        ],
+        "raw_text": "任务要求:击杀新手村里的所有npc，并摧毁祭坛，让所有的异世界冒险者只能在主城降生，永远都无法再进入新手村。任务惩罚:无。任务奖励:未知。新手村下方封印着一尊旱魃，如果旱魃出世，必将涂炭生灵。"
+      },
+      {
+        "chapter": 18,
+        "name": "任务卷轴 (放出旱魃)",
+        "name_en": "Quest Scroll (Release Hanba)",
+        "item_type": "任务卷轴",
+        "description": "来自黄皮子掉落的诸神任务卷轴，要求放出被蚩尤封印在新手村下方的黄帝之子旱魃",
+        "effects": [
+          "任务要求: 放出被封印的黄帝之子",
+          "任务惩罚: 以后受到的所有火属性攻击，伤害翻倍",
+          "任务奖励: 未知",
+          "背景: 远古时代，黄帝之子死后成旱魃，他为黄帝作战，对抗蚩尤，却被蚩尤封印于新手村下方"
+        ],
+        "raw_text": "远古时代，黄帝之子死后成旱魃，他为黄帝作战，对抗蚩尤，却被蚩尤封印于新手村下方。任务要求:放出被封印的黄帝之子。任务惩罚:你以后受到的所有火属性攻击，伤害翻倍。任务奖励:未知。"
+      },
+      {
+        "chapter": 12,
+        "name": "树人之心",
+        "name_en": "Tree Person Heart",
+        "item_type": "特殊材料",
+        "description": "首通扭曲丛林地狱级副本获得的材料",
+        "effects": ["用途未知，数量x4"],
+        "raw_text": "叮，你获得了树人之心+4。"
+      },
+      {
+        "chapter": 18,
+        "name": "神秘的钥匙",
+        "name_en": "Mysterious Key",
+        "item_type": "特殊道具",
+        "description": "击杀隐藏boss暴怒的黄皮子获得",
+        "effects": ["用途未知"],
+        "raw_text": "叮，你得到了神秘的钥匙+1。"
+      },
+      {
+        "chapter": 19,
+        "name": "冰焰魔矿",
+        "name_en": "Ice Flame Demon Ore",
+        "item_type": "任务物品/锻造材料",
+        "description": "被学徒艾尔伏斯偷走的贵重矿石，可用于将黄金级武器升级至铂金级",
+        "effects": ["将黄金级定制长弓升级为铂金级"],
+        "raw_text": "我的学徒艾尔伏斯偷走了一枚贵重的矿石...如果你能够协助我两位徒弟追回来，那枚矿石我愿意用来打造你的武器。"
+      }
+    ],
+    "mechanics": [
+      {
+        "chapter": 11,
+        "mechanic_name": "首通全服通告",
+        "mechanic_name_en": "First Clear Server Announcement",
+        "description": "完成副本或boss首通/首杀时触发全服通告。玩家可选择隐藏或显示姓名。首通奖励不受等级限制可直接使用装备。通关后结算，过程中击杀只给经验不掉落物品。",
+        "description_en": "First clear/kill triggers server-wide announcement. Player can hide or show name. First clear rewards ignore level restrictions. Dungeon rewards are settled upon completion; kills during the run only grant exp, no drops.",
+        "raw_text": "全服通告，恭喜玩家雪帝完成扭曲丛林首通，特此通告，望广大玩家再接再厉。他自己首通的原因，不受等级限制，可直接使用。在诸神黄昏中的副本奖励是通关后结算，在未通关之前，击杀野怪只会有经验值，而不是掉落物品。"
+      },
+      {
+        "chapter": 12,
+        "mechanic_name": "弱点攻击机制",
+        "mechanic_name_en": "Weak Point Attack Mechanic",
+        "description": "攻击怪物弱点部位可以增加暴击几率。即使暴击率只有1%，只要弱点打击足够精准，一样能够连续暴击。九头蛇柏弱点是九根血色藤蔓上的暗红色脑袋。",
+        "description_en": "Attacking weak points increases critical hit chance. Even with only 1% crit rate, precise weak point strikes can trigger consecutive critical hits. Hydra Cypress's weakness: dark red heads on nine blood-red vines.",
+        "raw_text": "任何怪物，都会有弱点。攻击弱点部位，才能够增加暴击几率。哪怕他更换武器后，暴击率只有残暴之靴的百分之一。可只要弱点打击足够精准，一样能够连续暴击。这就是弱点攻击离谱的地方，百分之一的暴击率，也能够打出高额暴击伤害。"
+      },
+      {
+        "chapter": 13,
+        "mechanic_name": "等级榜与装备榜",
+        "mechanic_name_en": "Level Leaderboard and Equipment Leaderboard",
+        "description": "游戏内置等级排行榜和装备排行榜。等级榜显示玩家等级和百分比经验。装备榜根据装备品级排名。",
+        "description_en": "In-game level and equipment leaderboards. Level leaderboard shows player level and exp percentage. Equipment leaderboard ranks by equipment quality tier.",
+        "raw_text": "打开等级榜。第一:修罗帝君，11级25%。第二:逐梦烟雪，10级95%。第三:我不爱钱，10级91%。第四:浮屠神狼，10级90%。第五:我真有20厘米，10级88%。装备榜:第一名:黄金权杖（黄金级）。第二名:惊雷弓（白银级）。第三名:九头盾（青铜级）。第四名:九头护肩（青铜级）。第五名:九头披风（青铜级）。"
+      },
+      {
+        "chapter": 13,
+        "mechanic_name": "技能书献祭升星系统",
+        "mechanic_name_en": "Skill Book Sacrifice Star-Up System",
+        "description": "某些特殊技能的熟练度通过献祭技能书提升，每献祭一本技能书获得1点熟练度，特殊技能书可获得多点熟练度。与普通技能使用一次加1点熟练度不同。",
+        "description_en": "Certain special skills improve mastery by sacrificing skill books. Each sacrificed skill book gives 1 mastery point; special skill books can give multiple points. Different from normal skills that gain 1 mastery point per use.",
+        "raw_text": "熟练度:0/10（该熟练度计算方式为献祭技能书，每献祭一本技能书，可获得1点熟练度，某些特殊技能可获得多点熟练度。）"
+      },
+      {
+        "chapter": 14,
+        "mechanic_name": "拧弦箭法",
+        "mechanic_name_en": "Twisted String Arrow Technique",
+        "description": "弓箭手战斗技巧：通过旋转弓弦让羽箭高速旋转飞出，把控好力量和角度可使羽箭在空中拐弯，命中时有高额穿透效果打出更高伤害，附带击退冲击力，可实现无限浮空连击。",
+        "description_en": "Archer combat technique: By twisting the bowstring, arrows spin rapidly in flight. With proper force and angle control, arrows can curve mid-air. On hit, high penetration deals bonus damage with knockback, enabling infinite aerial juggling.",
+        "raw_text": "拧弦箭法！通过旋转弓弦，让羽箭旋转飞出。把控好力量和角度，就能够让羽箭拐弯。不仅如此，羽箭会在空中高速旋转，因此，命中敌人的时候，羽箭会有高额的穿透效果，打出更高的伤害。"
+      },
+      {
+        "chapter": 14,
+        "mechanic_name": "遮影步",
+        "mechanic_name_en": "Shadow Step (Vision Block Technique)",
+        "description": "刺客战斗技巧：通过走位卡对方视野，始终保持在敌人视野盲区中，如同隐藏在敌人的影子里，不是技能而是纯技巧。",
+        "description_en": "Assassin combat technique: Position yourself to always stay in the enemy's vision blind spot, as if hiding in their shadow. This is a pure technique, not a skill.",
+        "raw_text": "遮影步不是技能，而是一种技巧。施展方法就是通过走位卡对方视野，就仿佛是隐藏在敌人的影子里面一般。因此得名遮影步。"
+      },
+      {
+        "chapter": 14,
+        "mechanic_name": "浮空连击机制",
+        "mechanic_name_en": "Aerial Combo Mechanic",
+        "description": "击飞敌人后可打出连击伤害，一般为战士类职业技能效果。但通过拧弦箭法的击退冲击力，弓箭手也可以实现连续浮空，需要在第一箭时就考虑第三箭落点。",
+        "description_en": "Launched enemies take combo damage. Normally restricted to warrior class skills. However, using Twisted String Arrow's knockback, archers can also maintain aerial combos, requiring prediction of the 3rd arrow's landing point from the 1st shot.",
+        "raw_text": "在诸神黄昏里面，对手被击飞后，将会承受连击伤害。不过，一般都是战士类职业才有击飞敌人的技能，然后衔接其他技能，打出连击伤害。可林天浩，一个弓箭手，竟然打出了如此离谱的连击伤害。"
+      },
+      {
+        "chapter": 15,
+        "mechanic_name": "霸体与狂暴机制",
+        "mechanic_name_en": "Super Armor and Berserk Mechanic",
+        "description": "霸体：免除一切控制(不含诅咒和压制类特殊技能)。狂暴：牺牲一定双抗，提升大量输出，部分boss狂暴下输出可增加10倍。正常boss在血量较低时同时释放霸体和狂暴进行临死反扑。",
+        "description_en": "Super Armor: Immune to all crowd control (excluding curses and suppression). Berserk: Sacrifices dual resistance for massive damage increase; some bosses can deal 10x damage. Normal bosses release both near death as a final counterattack.",
+        "raw_text": "霸体，免除一切控制，不包含诅咒和压制类特殊技能。狂暴，牺牲一定双抗，提升大量输出。有些强大的boss，狂暴状态下，输出增加十倍的都有。正常boss都是在血量比较低的时候霸体狂暴两个技能同时释放，然后进行临死反扑。"
+      },
+      {
+        "chapter": 15,
+        "mechanic_name": "灵魂摄取与控魂术机制",
+        "mechanic_name_en": "Soul Drain and Soul Control Mechanic",
+        "description": "灵魂摄取：强行剥夺目标灵魂，使目标进入虚弱状态并持续掉血24小时，除非击杀施法者否则不会停止。控魂术：有几率控制敌方灵魂并操控其战斗，持续时间24小时。",
+        "description_en": "Soul Drain: Forcibly strips target's soul, causing weakened state and 24-hour bleed. Only stops if caster is killed. Soul Control: Chance to dominate target's soul and control their actions for 24 hours.",
+        "raw_text": "灵魂摄取，能够强行剥夺对手的一定灵魂，被剥夺灵魂的敌方单位会进入虚弱状态，并且持续掉血。这持续掉血的时间是二十四小时！只要这黄皮子不被击杀，就会持续掉血二十四小时，想要不死，只能一直待在复活祭坛里面。控魂术，那就更变态了，有几率控制敌方单位的灵魂，从而操控其战斗。这个控魂术的持续时间同样是二十四小时。"
+      },
+      {
+        "chapter": 16,
+        "mechanic_name": "幻术破解方法",
+        "mechanic_name_en": "Illusion Breaking Method",
+        "description": "黄山幻术需要心智坚定才能抵抗。破解方法：脑补场景转换，将幻象与怪物真实形态联想，恶心得自己受不了即可打破幻境。",
+        "description_en": "Huangshan Illusion requires mental fortitude to resist. Breaking method: Mentally impose the monster's true form onto the illusion, making it so disgusting that the illusion breaks naturally.",
+        "raw_text": "不用想都知道，这是幻术。当然，如果心智不够坚定，就可能沉沦于这幻境之中。要恪守本心，破解幻术。其实有一个很简单的方法。那就是……脑补！把面前这个婀娜多姿的大长腿美女跟那身高超过三米，浑身毛发，满脸狰狞的黄皮子带入到一起。"
+      },
+      {
+        "chapter": 16,
+        "mechanic_name": "施法距离机制",
+        "mechanic_name_en": "Cast Range Mechanic",
+        "description": "大多数怪物和boss的技能施法距离与弓箭手普攻距离相当。利用普攻增幅技能增加的10%攻击距离可以卡施法距离，让怪物抬手又放下无法释放技能。",
+        "description_en": "Most monsters' skill cast range equals archer basic attack range. Using +10% attack range from Basic Attack Amplification, players can kite at the edge of cast range, causing monsters to cancel their skill casts.",
+        "raw_text": "大多数怪物，哪怕是boss，他们的技能施法距离都跟弓箭手的普攻距离差不多。而林天浩因为普攻增幅这个技能的原因，他的普攻距离要比正常的弓箭手远百分之十。也正是因为这个距离，林天浩精准的把控了施法距离，让黄皮子的攻击距离受到限制，抬起手又放下。"
+      },
+      {
+        "chapter": 17,
+        "mechanic_name": "自由属性点分配效率",
+        "mechanic_name_en": "Free Attribute Point Efficiency",
+        "description": "自由属性点分配效率：攻速(1点=0.02)，移速(1点=0.1)，蓝量(1点=5MP)。5点=0.5移速，10点=50MP=攻速+0.2。50点=攻速+1.0。",
+        "description_en": "Free attribute point efficiency: Attack Speed (1 pt = 0.02), Move Speed (1 pt = 0.1), Mana (1 pt = 5 MP). 5 pts = 0.5 move speed, 10 pts = 50 MP, 50 pts = 1.0 attack speed.",
+        "values": {"攻速": "1自由点=0.02", "移速": "1自由点=0.1", "蓝量": "1自由点=5MP"},
+        "raw_text": "首通副本奖励的五十个自由属性点，林天浩全部加在了攻速上。攻速从2.63提升到了3.63。十个自由属性点，林天浩全部加在蓝量上，蓝量提升到了一百。五个自由属性点加上去，林天浩的移速提升了0.5。"
+      },
+      {
+        "chapter": 17,
+        "mechanic_name": "蓝量限制机制",
+        "mechanic_name_en": "Mana Restriction Mechanic",
+        "description": "游戏前期蓝量是很多玩家的痛点，尤其是法师。弓箭手装备主要增加攻击力/移速/攻速/暴击吸血，加蓝量装备稀少。学习技能需要消耗蓝量才能使用并刷熟练度。",
+        "description_en": "Early game mana is painful for many players, especially mages. Archer equipment mainly adds attack/speed/crit/lifesteal; mana gear is rare. Skills need mana to cast and gain proficiency.",
+        "raw_text": "游戏前期，蓝量一直是很多玩家的痛，尤其是法师。弓箭手……装备主要增加的还是攻击力，移速，攻速，暴击吸血这些属性。加蓝量的装备实在是太少了。但是蓝量不够，他连刷熟练度都做不到。"
+      },
+      {
+        "chapter": 18,
+        "mechanic_name": "任务卷轴对立机制",
+        "mechanic_name_en": "Quest Scroll Opposition Mechanic",
+        "description": "游戏存在对立的任务卷轴：一个要求摧毁新手村阻止旱魃出世，一个要求放出旱魃。任务要求不冲突时，可以同时接取并完成两个对立任务。推测可能存在第三个任务卷轴要求击杀旱魃。",
+        "description_en": "The game features opposing quest scrolls: one to destroy the novice village preventing Hanba's emergence, another to release Hanba. When requirements don't conflict, both can be accepted and completed simultaneously. A third quest scroll (killing Hanba) is theorized to exist.",
+        "raw_text": "这个任务，跟之前击杀的九头蛇柏的任务卷轴刚好是对立的。一个是摧毁新手村，目的是为了不让旱魃出来。而这个任务卷轴，则是放出旱魃。任务要求不冲突。换而言之，林天浩可以同时把这两个任务都完成的。很有可能还有第三个任务卷轴。而第三个任务卷轴的要求，大概率是杀死旱魃！"
+      },
+      {
+        "chapter": 19,
+        "mechanic_name": "离开新手村条件",
+        "mechanic_name_en": "Leaving Novice Village Condition",
+        "description": "达到10级后满足离开新手村等级条件，需要在老村长处接取出村任务后才能离开新手村。未离开新手村前，等级上限被锁定，多余经验值作废。",
+        "description_en": "Reaching level 10 satisfies the level requirement to leave the novice village, but the departure quest from the village chief must be completed first. Before leaving, level is capped and excess exp is forfeited.",
+        "raw_text": "叮，你已经满足离开新手村的等级，可以在老村长那里接取出村任务后离开新手村。由于你还没有离开新手村，无法获取经验值，经验值作废。"
+      },
+      {
+        "chapter": 20,
+        "mechanic_name": "武器耐磨度机制",
+        "mechanic_name_en": "Weapon Durability Mechanic",
+        "description": "武器有耐磨度属性，石甲虫的破甲技能能打掉武器耐磨度。在前期武器异常稀缺的情况下，石甲虫这个技能让普通玩家叫苦不迭。",
+        "description_en": "Weapons have durability. Stone Beetle's Armor Break skill reduces weapon durability. In the early game when weapons are scarce, this skill is particularly troublesome for average players.",
+        "raw_text": "破甲，能够打掉武器的耐磨度，在前期武器异常稀缺的情况下，石甲虫这个技能，可谓是让人非常头痛。"
+      },
+      {
+        "chapter": 20,
+        "mechanic_name": "对立任务 (玩家间)",
+        "mechanic_name_en": "Opposing Quest (Between Players)",
+        "description": "玩家可接取互相直接对立的任务形成PvP对抗：一方协助NPC追击目标，另一方保护目标并击杀追击NPC。可通过两全策略同时消灭双方NPC最大化收益。",
+        "description_en": "Players can accept directly opposing quests creating PvP scenarios: one side assists NPCs hunting a target, the other protects the target and kills the pursuers. A mutually beneficial strategy can eliminate both NPC factions for maximum reward.",
+        "raw_text": "我的任务是协助那两个npc击杀艾尔伏斯，再拿回冰焰魔矿。'闻听这话，影杀有些诧异，'对立任务？''三个npc，一起弄死。''我们是先帮艾尔伏斯击杀两个npc，然后再回过头来击杀艾尔伏斯。'"
+      },
+      {
+        "chapter": 20,
+        "mechanic_name": "隐藏地图与秘境设定",
+        "mechanic_name_en": "Hidden Maps and Secret Realm Settings",
+        "description": "诸神黄昏有隐藏地图、隐藏boss、秘境、洞府等诸多设定。大多数玩家对自己的机缘守口如瓶。公会或官府榨干利益后才会公布攻略。",
+        "description_en": "Twilight of the Gods features hidden maps, hidden bosses, secret realms, cave mansions, and more. Most players keep their discoveries secret. Guilds or government forces only publish guides after exhausting all benefits.",
+        "raw_text": "诸神黄昏的隐藏地图，隐藏boss，还有秘境，洞府等等诸多设定。大多数人对于自己的机缘都守口如瓶，没有多少人愿意去公布自己的攻略。林天浩知道的攻略，大多数都是公会亦或者官府财团们在榨干利益后公布出来的。"
+      },
+      {
+        "chapter": 15,
+        "mechanic_name": "复活祭坛恢复机制",
+        "mechanic_name_en": "Revival Altar Recovery Mechanic",
+        "description": "复活祭坛可以恢复属性，被灵魂摄取持续掉血24小时的玩家只能待在复活祭坛里保命。",
+        "description_en": "Revival altars can restore attributes. Players suffering from 24-hour Soul Drain bleed can only survive by staying inside the revival altar.",
+        "raw_text": "只要这黄皮子不被击杀，就会持续掉血二十四小时，想要不死，只能一直待在复活祭坛里面。利用复活祭坛的恢复属性的能力进行保命。"
+      },
+      {
+        "chapter": 11,
+        "mechanic_name": "指向性施法与走位躲闪",
+        "mechanic_name_en": "Targeted Casting and Movement Dodging",
+        "description": "指向性施法技能可以通过走位躲闪。缠绕技能不是强控而是指向性施法，看到抬手动作即可提前走位拉开。藤条束缚从脚底出现，接近强控，很难反应。",
+        "description_en": "Targeted skills can be dodged with movement. Entangling Roots is not hard CC but targeted — seeing the cast animation allows preemptive dodging. Vine Bind emerges from beneath feet, nearly hard CC, very hard to react to.",
+        "raw_text": "缠绕这个技能并不是强控性技能，而是指向性施法。换而言之，是可以通过走位躲闪的。扭曲树人王的藤条束缚和普通树人的缠绕技能不一样。这是一个无限接近于强控的技能，因为束缚的藤条是直接从玩家脚底出现，很难反应过来。"
+      }
+    ]
+  }
+}
