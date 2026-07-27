@@ -1,185 +1,197 @@
 extends Node
 
+enum TalentRarity { YELLOW, MYSTIC, EARTH, HEAVEN, SAINT, DIVINE, SUPER_DIVINE, ETERNAL, HEAVENLY_DAO }
+
 var talents: Dictionary = {}
-var active_talents: Array = []
-var talent_slots: int = 1
+var active_talents: Dictionary = {}
 
 func _ready():
-	load_base_talents()
+    talents = {}
+    active_talents = {}
+    load_talents()
 
-func load_base_talents():
-	talents = {
-		"divine_punishment_hand": TalentData.from_dict({
-			"id": "divine_punishment_hand",
-			"name": "天罚之手",
-			"description": "每次普攻造成目标最大HP百分比的真实伤害，每次普攻永久提升自身生命值",
-			"grade": TalentData.TalentGrade.SUPER_DIVINE,
-			"effect_type": "true_damage_percentage",
-			"effect_value": 0.03,
-			"effect_target": "enemy",
-			"max_stars": 10,
-			"current_stars": 1,
-			"is_active": false,
-			"skill_effects": ["true_damage", "hp_steal_permanent"]
-		}),
-		"divine_punishment_brain": TalentData.from_dict({
-			"id": "divine_punishment_brain",
-			"name": "天罚之脑",
-			"description": "无视护盾、减伤、反伤等负面效果，造成绝对真实伤害",
-			"grade": TalentData.TalentGrade.SUPER_DIVINE,
-			"effect_type": "penetrate_defense",
-			"effect_value": 1.0,
-			"effect_target": "self",
-			"max_stars": 10,
-			"current_stars": 1,
-			"is_active": false,
-			"skill_effects": ["ignore_shield", "ignore_reduction", "ignore_thorns"]
-		}),
-		"divine_punishment_heart": TalentData.from_dict({
-			"id": "divine_punishment_heart",
-			"name": "天罚之心",
-			"description": "生死簿每造成一次伤害叠加4点生命值",
-			"grade": TalentData.TalentGrade.SUPER_DIVINE,
-			"effect_type": "hp_stack",
-			"effect_value": 4.0,
-			"effect_target": "self",
-			"max_stars": 10,
-			"current_stars": 1,
-			"is_active": false,
-			"skill_effects": ["hp_regeneration"]
-		}),
-		"five_star_attributes": TalentData.from_dict({
-			"id": "five_star_attributes",
-			"name": "德智体美劳",
-			"description": "自由属性点×5，加点提升全属性",
-			"grade": TalentData.TalentGrade.SAINT,
-			"effect_type": "attribute_multiplier",
-			"effect_value": 5.0,
-			"effect_target": "self",
-			"is_active": true,
-			"skill_effects": ["all_attributes"]
-		}),
-		"ten_times_damage_reduction": TalentData.from_dict({
-			"id": "ten_times_damage_reduction",
-			"name": "十倍减伤",
-			"description": "承受伤害降低为十分之一",
-			"grade": TalentData.TalentGrade.SAINT,
-			"effect_type": "damage_reduction",
-			"effect_value": 0.9,
-			"effect_target": "self",
-			"is_active": true,
-			"skill_effects": ["damage_reduction"]
-		}),
-		"ten_times_true_damage": TalentData.from_dict({
-			"id": "ten_times_true_damage",
-			"name": "十倍真伤",
-			"description": "攻击造成10倍真实伤害",
-			"grade": TalentData.TalentGrade.SAINT,
-			"effect_type": "true_damage_multiplier",
-			"effect_value": 10.0,
-			"effect_target": "enemy",
-			"is_active": true,
-			"skill_effects": ["true_damage"]
-		}),
-		"life_blessing": TalentData.from_dict({
-			"id": "life_blessing",
-			"name": "生命赐福",
-			"description": "给予盟友生命增益",
-			"grade": TalentData.TalentGrade.SAINT,
-			"effect_type": "heal_ally",
-			"effect_value": 1000.0,
-			"effect_target": "ally",
-			"is_active": false,
-			"skill_effects": ["heal"]
-		}),
-		"eternal_body": TalentData.from_dict({
-			"id": "eternal_body",
-			"name": "万法之躯",
-			"description": "所有本源法则抗性与悟性每秒+1",
-			"grade": TalentData.TalentGrade.ETERNAL,
-			"effect_type": "law_resistance",
-			"effect_value": 1.0,
-			"effect_target": "self",
-			"is_active": true,
-			"skill_effects": ["resistance_up", "comprehension_up"]
-		}),
-		"devour_all": TalentData.from_dict({
-			"id": "devour_all",
-			"name": "吞天噬地",
-			"description": "吞噬方圆100米内一切获取属性",
-			"grade": TalentData.TalentGrade.HEAVENLY_DAO,
-			"effect_type": "devour",
-			"effect_value": 100.0,
-			"effect_target": "area",
-			"is_active": false,
-			"skill_effects": ["attribute_steal"]
-		}),
-		"death_reincarnation": TalentData.from_dict({
-			"id": "death_reincarnation",
-			"name": "死亡轮回",
-			"description": "普攻有概率秒杀任何单位",
-			"grade": TalentData.TalentGrade.DIVINE,
-			"effect_type": "instant_kill",
-			"effect_value": 0.005,
-			"effect_target": "enemy",
-			"max_stars": 10,
-			"current_stars": 1,
-			"is_active": false,
-			"skill_effects": ["instant_kill"]
-		})
-	}
+func load_talents():
+    talents = {
+        "heavenly_punishment_hand": {
+            "id": "heavenly_punishment_hand",
+            "name": "天罚之手",
+            "rarity": "super_divine",
+            "description": "每次普攻造成自身HP百分比的真实伤害，每次普攻永久提升HP",
+            "star_effects": {
+                2: {"true_damage_percent": 0.03, "hp_per_hit": 3},
+                3: {"true_damage_percent": 0.04, "hp_per_hit": 5},
+                4: {"true_damage_percent": 0.05, "hp_per_hit": 10},
+                5: {"true_damage_percent": 0.07, "hp_per_hit": 20},
+                6: {"true_damage_percent": 0.1, "hp_per_hit": 50},
+                7: {"true_damage_percent": 0.15, "hp_per_hit": 100}
+            },
+            "max_star": 10,
+            "current_star": 2
+        },
+        "heavenly_punishment_heart": {
+            "id": "heavenly_punishment_heart",
+            "name": "天罚之心",
+            "rarity": "super_divine",
+            "description": "生死簿每造成一次伤害叠加4点生命值",
+            "star_effects": {
+                4: {"hp_per_damage": 4, "daily_hp": 345600},
+                5: {"hp_per_damage": 8, "daily_hp": 691200},
+                6: {"hp_per_damage": 16, "daily_hp": 1382400},
+                7: {"hp_per_damage": 32, "daily_hp": 2764800},
+                8: {"hp_per_damage": 64, "daily_hp": 5529600}
+            },
+            "max_star": 10,
+            "current_star": 0
+        },
+        "heavenly_punishment_brain": {
+            "id": "heavenly_punishment_brain",
+            "name": "天罚之脑",
+            "rarity": "super_divine",
+            "description": "无视护盾减伤、反伤负面，造成绝对真实伤害",
+            "star_effects": {
+                5: {"max_hp_reduction": 10000},
+                6: {"max_hp_reduction": 100000},
+                7: {"max_hp_reduction": 1000000},
+                8: {"max_hp_reduction": 10000000},
+                9: {"max_hp_reduction": 100000000},
+                10: {"max_hp_reduction": 1000000000}
+            },
+            "max_star": 10,
+            "current_star": 0
+        },
+        "all_round_development": {
+            "id": "all_round_development",
+            "name": "德智体美",
+            "rarity": "saint",
+            "description": "自由属性点×5，加点提升全属性",
+            "effect": {"free_attribute_multiplier": 5, "all_attribute_boost": true},
+            "max_star": 1,
+            "current_star": 0
+        },
+        "life_blessing": {
+            "id": "life_blessing",
+            "name": "生命馈赠",
+            "rarity": "saint",
+            "description": "给予盟友生命/辅助型生命增益",
+            "effect": {"ally_hp_boost": 0.2},
+            "max_star": 1,
+            "current_star": 0
+        },
+        "infinite_blade_range": {
+            "id": "infinite_blade_range",
+            "name": "无穷剑距",
+            "rarity": "divine",
+            "description": "每击杀野怪永久+1攻击力，每击杀boss永久+0.01攻击距离",
+            "effect": {"attack_per_kill": 1, "range_per_boss_kill": 0.01},
+            "max_star": 1,
+            "current_star": 0
+        },
+        "absolute_slow": {
+            "id": "absolute_slow",
+            "name": "绝对迟缓",
+            "rarity": "saint",
+            "description": "普攻降低敌方移速5%，不可被净化",
+            "effect": {"move_speed_reduction": 0.05},
+            "max_star": 1,
+            "current_star": 0
+        },
+        "pet_evolution": {
+            "id": "pet_evolution",
+            "name": "御兽进化",
+            "rarity": "saint",
+            "description": "进化召唤物品质和战力",
+            "effect": {"pet_evolution_bonus": 0.5},
+            "max_star": 1,
+            "current_star": 0
+        }
+    }
 
-func get_talent(talent_id: String) -> TalentData:
-	return talents.get(talent_id, null)
+func activate_talent(talent_id: String):
+    if not talent_id in talents:
+        return false
+    
+    active_talents[talent_id] = talents[talent_id].duplicate()
+    return true
 
-func equip_talent(talent_id: String) -> bool:
-	if talent_id not in talents:
-		return false
-	if len(active_talents) >= talent_slots:
-		return false
-	
-	active_talents.append(talent_id)
-	talents[talent_id].is_active = true
-	return true
+func deactivate_talent(talent_id: String):
+    if talent_id in active_talents:
+        active_talents.erase(talent_id)
+        return true
+    return false
 
-func unequip_talent(talent_id: String):
-	if talent_id in active_talents:
-		active_talents.erase(talent_id)
-		talents[talent_id].is_active = false
+func is_talent_active(talent_id: String) -> bool:
+    return talent_id in active_talents
 
-func add_proficiency(talent_id: String, amount: int):
-	if talent_id in talents:
-		talents[talent_id].proficiency += amount
-		check_star_upgrade(talent_id)
+func get_talent_data(talent_id: String) -> Dictionary:
+    return talents.get(talent_id, {})
 
-func check_star_upgrade(talent_id: String):
-	var talent: TalentData = talents.get(talent_id, null)
-	if not talent:
-		return
-	
-	var thresholds: Array = [100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000, 10000000]
-	for i in range(len(thresholds)):
-		if talent.proficiency >= thresholds[i] and talent.current_stars < i + 1:
-			talent.current_stars = i + 1
-			update_talent_effect(talent)
+func get_active_talent_data(talent_id: String) -> Dictionary:
+    return active_talents.get(talent_id, {})
 
-func update_talent_effect(talent: TalentData):
-	match talent.effect_type:
-		"true_damage_percentage":
-			talent.effect_value = 0.01 + talent.current_stars * 0.01
-		"instant_kill":
-			talent.effect_value = 0.005 + talent.current_stars * 0.005
-		"hp_stack":
-			talent.effect_value = 1.0 + talent.current_stars * 0.5
-
-func unlock_slot():
-	talent_slots += 1
+func get_all_talents() -> Array:
+    return talents.values()
 
 func get_active_talents() -> Array:
-	var result: Array = []
-	for talent_id in active_talents:
-		result.append(talents[talent_id])
-	return result
+    return active_talents.values()
 
-func get_active_talent_ids() -> Array:
-	return active_talents
+func get_talent_rarity(talent_id: String) -> String:
+    var talent = talents.get(talent_id, {})
+    return talent.get("rarity", "")
+
+func upgrade_talent(talent_id: String) -> bool:
+    if not talent_id in active_talents:
+        return false
+    
+    var talent = active_talents[talent_id]
+    var current_star = talent.get("current_star", 0)
+    var max_star = talent.get("max_star", 1)
+    
+    if current_star >= max_star:
+        return false
+    
+    talent["current_star"] = current_star + 1
+    return true
+
+func get_talent_current_star(talent_id: String) -> int:
+    var talent = active_talents.get(talent_id, {})
+    return talent.get("current_star", 0)
+
+func get_talent_max_star(talent_id: String) -> int:
+    var talent = talents.get(talent_id, {})
+    return talent.get("max_star", 1)
+
+func apply_talent_effects(character: Node):
+    for talent_id in active_talents:
+        var talent = active_talents[talent_id]
+        var current_star = talent.get("current_star", 0)
+        var star_effects = talent.get("star_effects", {})
+        var effect = talent.get("effect", {})
+        
+        if current_star in star_effects:
+            var star_effect = star_effects[current_star]
+            _apply_effect(character, star_effect)
+        
+        if effect:
+            _apply_effect(character, effect)
+
+func _apply_effect(character: Node, effect: Dictionary):
+    for stat_name in effect:
+        var value = effect[stat_name]
+        
+        if character.has_method("add_modifier"):
+            var modifier = StatModifier.new(stat_name, value, StatModifier.ModifierType.MULTIPLICATIVE, "talent", 0, true)
+            character.add_modifier(modifier)
+
+func equip_talent(talent_id: String, star: int = 1):
+    if not talent_id in talents:
+        return false
+    
+    active_talents[talent_id] = talents[talent_id].duplicate()
+    active_talents[talent_id]["current_star"] = star
+    return true
+
+func get_talent(talent_id: String) -> Dictionary:
+    return active_talents.get(talent_id, talents.get(talent_id, {}))
+
+func get_equipped_talents() -> Array:
+    return active_talents.keys()

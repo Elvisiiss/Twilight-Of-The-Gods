@@ -1,244 +1,116 @@
 extends Node
 
-var quests: Dictionary = {}
-var active_quests: Array = []
+var active_quests: Dictionary = {}
 var completed_quests: Array = []
+var quest_progress: Dictionary = {}
 
 func _ready():
-	load_quests()
+    active_quests = {}
+    completed_quests = []
+    quest_progress = {}
 
-func load_quests():
-	quests = {
-		"main_1": QuestData.from_dict({
-			"id": "main_1",
-			"name": "踏上旅途",
-			"description": "去找村庄长老交谈，开始你的冒险",
-			"quest_type": QuestData.QuestType.MAIN,
-			"required_level": 1,
-			"objectives": [
-				{"type": QuestData.ObjectiveType.TALK, "target": "village_elder", "amount": 1, "current": 0}
-			],
-			"rewards": {"experience": 100, "gold": 50},
-			"start_npc": "village_elder",
-			"end_npc": "village_elder",
-			"priority": 10
-		}),
-		"main_2": QuestData.from_dict({
-			"id": "main_2",
-			"name": "初次战斗",
-			"description": "前往训练区，击败5个训练假人",
-			"quest_type": QuestData.QuestType.MAIN,
-			"required_level": 2,
-			"required_quests": ["main_1"],
-			"objectives": [
-				{"type": QuestData.ObjectiveType.KILL, "target": "training_dummy", "amount": 5, "current": 0}
-			],
-			"rewards": {"experience": 200, "gold": 100},
-			"start_npc": "trainer",
-			"end_npc": "trainer",
-			"priority": 9
-		}),
-		"main_3": QuestData.from_dict({
-			"id": "main_3",
-			"name": "森林的威胁",
-			"description": "前往森林边缘，消灭10只狼",
-			"quest_type": QuestData.QuestType.MAIN,
-			"required_level": 5,
-			"required_quests": ["main_2"],
-			"objectives": [
-				{"type": QuestData.ObjectiveType.KILL, "target": "wolf", "amount": 10, "current": 0}
-			],
-			"rewards": {"experience": 500, "gold": 200},
-			"start_npc": "village_elder",
-			"end_npc": "village_elder",
-			"priority": 8
-		}),
-		"main_4": QuestData.from_dict({
-			"id": "main_4",
-			"name": "哥布林的侵扰",
-			"description": "前往黑暗森林，消灭哥布林营地的哥布林",
-			"quest_type": QuestData.QuestType.MAIN,
-			"required_level": 10,
-			"required_quests": ["main_3"],
-			"objectives": [
-				{"type": QuestData.ObjectiveType.KILL, "target": "goblin", "amount": 15, "current": 0},
-				{"type": QuestData.ObjectiveType.KILL, "target": "goblin_leader", "amount": 1, "current": 0}
-			],
-			"rewards": {"experience": 1000, "gold": 500},
-			"start_npc": "forest_ranger",
-			"end_npc": "forest_ranger",
-			"priority": 7
-		}),
-		"side_1": QuestData.from_dict({
-			"id": "side_1",
-			"name": "收集草药",
-			"description": "帮药剂师收集10株草药",
-			"quest_type": QuestData.QuestType.SIDE,
-			"required_level": 3,
-			"objectives": [
-				{"type": QuestData.ObjectiveType.COLLECT, "target": "herb", "amount": 10, "current": 0}
-			],
-			"rewards": {"experience": 150, "gold": 80},
-			"start_npc": "healer",
-			"end_npc": "healer",
-			"priority": 5
-		}),
-		"side_2": QuestData.from_dict({
-			"id": "side_2",
-			"name": "武器修理",
-			"description": "帮铁匠收集5个铁矿",
-			"quest_type": QuestData.QuestType.SIDE,
-			"required_level": 4,
-			"objectives": [
-				{"type": QuestData.ObjectiveType.COLLECT, "target": "iron_ore", "amount": 5, "current": 0}
-			],
-			"rewards": {"experience": 180, "gold": 100},
-			"start_npc": "blacksmith",
-			"end_npc": "blacksmith",
-			"priority": 5
-		})
-	}
+func add_quest(quest_id: String):
+    var data_manager = DataManager.new()
+    data_manager.init()
+    var quest_data = data_manager.get_quest(quest_id)
+    
+    if quest_data.empty():
+        return false
+    
+    active_quests[quest_id] = quest_data
+    quest_progress[quest_id] = 0
+    
+    return true
 
-func accept_quest(quest_id: String) -> bool:
-	if quest_id not in quests:
-		return false
-	
-	var quest: QuestData = quests[quest_id]
-	
-	if quest.status != QuestData.QuestStatus.AVAILABLE:
-		return false
-	
-	if quest.required_level > get_player_level():
-		return false
-	
-	for required_quest in quest.required_quests:
-		if required_quest not in completed_quests:
-			return false
-	
-	quest.status = QuestData.QuestStatus.IN_PROGRESS
-	active_quests.append(quest_id)
-	
-	EventBus.emit_quest_accept(quest_id)
-	return true
+func remove_quest(quest_id: String):
+    if quest_id in active_quests:
+        active_quests.erase(quest_id)
+        if quest_id in quest_progress:
+            quest_progress.erase(quest_id)
+        return true
+    return false
 
-func update_objective(quest_id: String, objective_type: int, target: String, amount: int = 1):
-	if quest_id not in active_quests:
-		return
-	
-	var quest: QuestData = quests[quest_id]
-	
-	for objective in quest.objectives:
-		if objective["type"] == objective_type and objective["target"] == target:
-			objective["current"] += amount
-			
-			if objective["current"] >= objective["amount"]:
-				objective["current"] = objective["amount"]
-			
-			check_quest_completion(quest_id)
-			return
+func update_quest_progress(quest_id: String, target_type: String, amount: int = 1):
+    if not quest_id in active_quests:
+        return false
+    
+    var quest = active_quests[quest_id]
+    if quest.get("type", "") != target_type:
+        return false
+    
+    quest_progress[quest_id] += amount
+    
+    if is_quest_complete(quest_id):
+        complete_quest(quest_id)
+    
+    return true
 
-func check_quest_completion(quest_id: String):
-	if quest_id not in quests:
-		return
-	
-	var quest: QuestData = quests[quest_id]
-	var all_completed: bool = true
-	
-	for objective in quest.objectives:
-		if objective["current"] < objective["amount"]:
-			all_completed = false
-			break
-	
-	if all_completed:
-		quest.status = QuestData.QuestStatus.COMPLETED
-		EventBus.emit_quest_complete(quest_id)
+func is_quest_complete(quest_id: String) -> bool:
+    if not quest_id in active_quests:
+        return false
+    
+    var quest = active_quests[quest_id]
+    var target_count = quest.get("count", 0)
+    var current_progress = quest_progress.get(quest_id, 0)
+    
+    return current_progress >= target_count
 
-func complete_quest(quest_id: String) -> bool:
-	if quest_id not in quests:
-		return false
-	
-	var quest: QuestData = quests[quest_id]
-	
-	if quest.status != QuestData.QuestStatus.COMPLETED:
-		return false
-	
-	grant_rewards(quest)
-	
-	quest.status = QuestData.QuestStatus.REWARDED
-	active_quests.erase(quest_id)
-	completed_quests.append(quest_id)
-	
-	if quest.is_repeatable:
-		get_tree().create_timer(quest.repeat_cooldown).connect("timeout", self, "_on_quest_reset", [quest_id])
-	
-	EventBus.emit_quest_reward(quest_id)
-	return true
+func complete_quest(quest_id: String):
+    if not quest_id in active_quests:
+        return
+    
+    var quest = active_quests[quest_id]
+    var rewards = quest.get("rewards", {})
+    
+    _apply_rewards(rewards)
+    
+    completed_quests.append(quest_id)
+    remove_quest(quest_id)
+    
+    var game_manager = get_parent()
+    if game_manager and game_manager.has_method("get_event_bus"):
+        game_manager.get_event_bus().emit_quest_complete(get_parent(), quest_id)
 
-func grant_rewards(quest: QuestData):
-	var player: Node = get_player()
-	if not player:
-		return
-	
-	if player.has_node("LevelSystem") and "experience" in quest.rewards:
-		var level_system: LevelSystem = player.get_node("LevelSystem")
-		level_system.add_experience(quest.rewards["experience"])
-	
-	if player.has_node("CurrencySystem") and "gold" in quest.rewards:
-		var currency_system: CurrencySystem = player.get_node("CurrencySystem")
-		currency_system.add_gold(quest.rewards["gold"])
-	
-	if player.has_node("InventorySystem") and "items" in quest.rewards:
-		var inventory: InventorySystem = player.get_node("InventorySystem")
-		for item_id in quest.rewards["items"]:
-			inventory.add_item({"id": item_id, "name": item_id, "type": "material"}, 1)
-
-func _on_quest_reset(quest_id: String):
-	if quest_id in quests:
-		var quest: QuestData = quests[quest_id]
-		quest.status = QuestData.QuestStatus.AVAILABLE
-		for objective in quest.objectives:
-			objective["current"] = 0
-
-func get_available_quests() -> Array:
-	var available: Array = []
-	for quest_id in quests:
-		var quest: QuestData = quests[quest_id]
-		
-		if quest.status != QuestData.QuestStatus.AVAILABLE:
-			continue
-		
-		if quest.required_level > get_player_level():
-			continue
-		
-		var has_required: bool = true
-		for required_quest in quest.required_quests:
-			if required_quest not in completed_quests:
-				has_required = false
-				break
-		
-		if has_required:
-			available.append(quest)
-	
-	return available
+func _apply_rewards(rewards: Dictionary):
+    if "exp" in rewards:
+        if get_parent().has_method("gain_experience"):
+            get_parent().gain_experience(rewards["exp"])
+    
+    if "gold" in rewards:
+        if get_parent().has_method("add_gold"):
+            get_parent().add_gold(rewards["gold"])
+    
+    if "item" in rewards:
+        var data_manager = DataManager.new()
+        data_manager.init()
+        var item_data = data_manager.get_item(rewards["item"])
+        
+        if get_parent().has_method("add_item"):
+            get_parent().add_item(item_data)
 
 func get_active_quests() -> Array:
-	var result: Array = []
-	for quest_id in active_quests:
-		if quest_id in quests:
-			result.append(quests[quest_id])
-	return result
+    var result = []
+    for quest_id in active_quests:
+        var quest = active_quests[quest_id]
+        quest["progress"] = quest_progress.get(quest_id, 0)
+        result.append(quest)
+    return result
 
-func get_quest(quest_id: String) -> QuestData:
-	return quests.get(quest_id, null)
+func get_completed_quests() -> Array:
+    return completed_quests
 
-func get_player_level() -> int:
-	var player: Node = get_player()
-	if player and player.has_node("LevelSystem"):
-		return player.get_node("LevelSystem").current_level
-	return 1
+func get_quest_progress(quest_id: String) -> int:
+    return quest_progress.get(quest_id, 0)
 
-func get_player() -> Node:
-	var players: Array = get_tree().get_nodes_in_group("players")
-	if not players.empty():
-		return players[0]
-	return null
+func has_active_quest(quest_id: String) -> bool:
+    return quest_id in active_quests
+
+func has_completed_quest(quest_id: String) -> bool:
+    return quest_id in completed_quests
+
+func get_quest_by_target(target_id: String) -> Dictionary:
+    for quest_id in active_quests:
+        var quest = active_quests[quest_id]
+        if quest.get("target", "") == target_id:
+            return quest
+    return {}

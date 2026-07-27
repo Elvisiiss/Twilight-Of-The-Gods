@@ -1,86 +1,41 @@
-extends Control
+extends Panel
 
-var player: Node = null
-var character_stats: CharacterStats = null
-var level_system: LevelSystem = null
-var class_system: ClassSystem = null
-var talent_system: TalentSystem = null
-
-var stat_labels: Dictionary = {}
-var is_visible: bool = false
+var character: Node = null
+var stats_label: Label = null
 
 func _ready():
-	connect_to_player()
-	initialize_stat_labels()
+    stats_label = Label.new()
+    stats_label.position = Vector2(10, 10)
+    stats_label.autowrap_mode = Label.AUTOWRAP_WORD
+    add_child(stats_label)
+    visible = false
 
-func connect_to_player():
-	var players: Array = get_tree().get_nodes_in_group("players")
-	if not players.empty():
-		player = players[0]
-		if player.has_node("CharacterStats"):
-			character_stats = player.get_node("CharacterStats")
-		if player.has_node("LevelSystem"):
-			level_system = player.get_node("LevelSystem")
-		if player.has_node("ClassSystem"):
-			class_system = player.get_node("ClassSystem")
-		if player.has_node("TalentSystem"):
-			talent_system = player.get_node("TalentSystem")
+func set_character(p_character: Node):
+    character = p_character
 
-func initialize_stat_labels():
-	var stats: Array = ["hp", "mp", "attack", "magic_power", "armor", "magic_resist", "attack_speed", "move_speed", "crit_rate", "crit_damage"]
-	
-	for stat in stats:
-		var label: Label = get_node_or_null("Stat" + stat.capitalize())
-		if label:
-			stat_labels[stat] = label
+func update_stats():
+    if not character or not character.has_method("get_stat"):
+        return
+    
+    var text = "属性面板:\n\n"
+    text += "生命值: %.0f\n" % character.get_stat("hp")
+    text += "法力值: %.0f\n" % character.get_stat("mp")
+    text += "攻击力: %.0f\n" % character.get_stat("attack")
+    text += "法术强度: %.0f\n" % character.get_stat("magic_power")
+    text += "护甲: %.0f\n" % character.get_stat("armor")
+    text += "魔抗: %.0f\n" % character.get_stat("magic_resist")
+    text += "攻速: %.2f\n" % character.get_stat("attack_speed")
+    text += "移速: %.2f\n" % character.get_stat("move_speed")
+    text += "暴击率: %.1f%%\n" % (character.get_stat("crit_rate") * 100)
+    text += "暴击伤害: %.0f%%\n" % (character.get_stat("crit_damage") * 100)
+    
+    stats_label.text = text
 
-func show_panel():
-	is_visible = true
-	visible = true
-	update_panel()
+func toggle():
+    visible = not visible
+    if visible:
+        update_stats()
 
-func hide_panel():
-	is_visible = false
-	visible = false
-
-func toggle_panel():
-	if is_visible:
-		hide_panel()
-	else:
-		show_panel()
-
-func update_panel():
-	if not character_stats:
-		return
-	
-	for stat in stat_labels:
-		var value: float = character_stats.get_stat(stat)
-		var label: Label = stat_labels[stat]
-		
-		if label:
-			label.text = str(int(value))
-	
-	if level_system:
-		var level_label: Label = get_node_or_null("LevelLabel")
-		if level_label:
-			level_label.text = "等级: " + str(level_system.current_level)
-		
-		var exp_label: Label = get_node_or_null("ExpLabel")
-		if exp_label:
-			exp_label.text = "经验: " + str(level_system.current_experience) + "/" + str(level_system.calculate_required_experience(level_system.current_level))
-		
-		var points_label: Label = get_node_or_null("PointsLabel")
-		if points_label:
-			points_label.text = "属性点: " + str(level_system.free_attribute_points)
-	
-	if class_system:
-		var class_label: Label = get_node_or_null("ClassLabel")
-		if class_label:
-			var class_data: ClassData = class_system.get_current_class()
-			class_label.text = "职业: " + (class_data.name if class_data else "未选择")
-	
-	if talent_system:
-		var talent_label: Label = get_node_or_null("TalentLabel")
-		if talent_label:
-			var active_talents: Array = talent_system.get_active_talents()
-			talent_label.text = "已装备天赋: " + str(len(active_talents))
+func _process(delta: float):
+    if visible:
+        update_stats()

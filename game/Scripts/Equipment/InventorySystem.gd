@@ -1,152 +1,120 @@
 extends Node
 
-enum ItemType {
-	EQUIPMENT,
-	CONSUMABLE,
-	MATERIAL,
-	QUEST,
-	CURRENCY
-}
-
 var inventory_size: int = 50
 var items: Array = []
-var equipment_manager: EquipmentManager = null
+var gold: int = 0
 
 func _ready():
-	pass
+    items = []
+    gold = 0
 
-func set_equipment_manager(manager: EquipmentManager):
-	equipment_manager = manager
+func add_item(item: Dictionary, quantity: int = 1):
+    if items.size() >= inventory_size:
+        return false
+    
+    for i in range(quantity):
+        if items.size() >= inventory_size:
+            return false
+        items.append(item.duplicate())
+    
+    return true
 
-func add_item(item: Dictionary, count: int = 1) -> bool:
-	if get_total_items() >= inventory_size:
-		return false
-	
-	var existing_slot: Dictionary = find_item(item["id"])
-	if existing_slot and item.get("stackable", false):
-		existing_slot["count"] += count
-	else:
-		items.append({
-			"id": item["id"],
-			"name": item["name"],
-			"type": item.get("type", ItemType.MATERIAL),
-			"data": item,
-			"count": count,
-			"stackable": item.get("stackable", false)
-		})
-	
-	EventBus.emit_inventory_change()
-	return true
+func remove_item(item_id: String, quantity: int = 1):
+    var removed = 0
+    var to_remove: Array = []
+    
+    for i in range(items.size() - 1, -1, -1):
+        if removed >= quantity:
+            break
+        
+        if items[i].get("id", "") == item_id:
+            to_remove.append(i)
+            removed += 1
+    
+    for index in to_remove:
+        items.remove(index)
+    
+    return removed
 
-func remove_item(item_id: String, count: int = 1) -> bool:
-	var slot: Dictionary = find_item(item_id)
-	if not slot:
-		return false
-	
-	if slot["count"] <= count:
-		items.erase(slot)
-	else:
-		slot["count"] -= count
-	
-	EventBus.emit_inventory_change()
-	return true
+func get_item(index: int) -> Dictionary:
+    if index < 0 or index >= items.size():
+        return {}
+    return items[index]
 
-func find_item(item_id: String) -> Dictionary:
-	for slot in items:
-		if slot["id"] == item_id:
-			return slot
-	return null
+func get_items_by_type(item_type: String) -> Array:
+    var result = []
+    for item in items:
+        if item.get("type", "") == item_type:
+            result.append(item)
+    return result
 
-func use_item(item_id: String, target: Node = null) -> bool:
-	var slot: Dictionary = find_item(item_id)
-	if not slot:
-		return false
-	
-	var item: Dictionary = slot["data"]
-	
-	match item.get("type", ItemType.MATERIAL):
-		ItemType.CONSUMABLE:
-			use_consumable(item, target)
-		ItemType.EQUIPMENT:
-			if equipment_manager:
-				equip_item_from_inventory(item_id)
-	
-	remove_item(item_id, 1)
-	return true
+func has_item(item_id: String) -> bool:
+    for item in items:
+        if item.get("id", "") == item_id:
+            return true
+    return false
 
-func use_consumable(item: Dictionary, target: Node = null):
-	if not target:
-		target = get_parent()
-	
-	if target.has_node("CharacterStats"):
-		var stats: CharacterStats = target.get_node("CharacterStats")
-		
-		if "hp" in item.get("effects", {}):
-			var hp_amount: float = item["effects"]["hp"]
-			var current_hp: float = stats.get_stat("hp")
-			var max_hp: float = stats.get_stat("hp")
-			stats.set_base_stat("hp", min(max_hp, current_hp + hp_amount))
-		
-		if "mp" in item.get("effects", {}):
-			var mp_amount: float = item["effects"]["mp"]
-			var current_mp: float = stats.get_stat("mp")
-			var max_mp: float = stats.get_stat("mp")
-			stats.set_base_stat("mp", min(max_mp, current_mp + mp_amount))
-		
-		if "buff" in item.get("effects", {}):
-			var buff_data: Dictionary = item["effects"]["buff"]
-			var modifier: StatModifier = StatModifier.new(
-				buff_data["stat"],
-				buff_data["value"],
-				StatModifier.ModifierType.ADDITIVE,
-				"consumable",
-				buff_data.get("duration", 0)
-			)
-			stats.add_modifier(modifier)
+func get_item_count(item_id: String) -> int:
+    var count = 0
+    for item in items:
+        if item.get("id", "") == item_id:
+            count += 1
+    return count
 
-func equip_item_from_inventory(item_id: String):
-	var slot: Dictionary = find_item(item_id)
-	if not slot:
-		return
-	
-	var equipment: EquipmentData = EquipmentData.from_dict(slot["data"])
-	var target_slot: String = get_equipment_slot(equipment.slot_type)
-	
-	if target_slot:
-		var old_equipment: EquipmentData = equipment_manager.unequip_item(target_slot)
-		if old_equipment:
-			add_item(old_equipment.to_dict())
-		
-		equipment_manager.equip_item(target_slot, equipment)
-		remove_item(item_id)
+func get_empty_slots() -> int:
+    return inventory_size - items.size()
 
-func get_equipment_slot(slot_type: int) -> String:
-	var slot_map: Dictionary = {
-		EquipmentData.SlotType.WEAPON: "weapon",
-		EquipmentData.SlotType.SHOES: "shoes",
-		EquipmentData.SlotType.HEART_MIRROR: "heart_mirror",
-		EquipmentData.SlotType.ARMOR: "armor",
-		EquipmentData.SlotType.HELMET: "helmet",
-		EquipmentData.SlotType.CLOAK: "cloak",
-		EquipmentData.SlotType.RING: "ring_left",
-		EquipmentData.SlotType.NECKLACE: "necklace",
-		EquipmentData.SlotType.SHOULDER: "shoulder_left",
-		EquipmentData.SlotType.LEGGINGS: "leggings_left"
-	}
-	return slot_map.get(slot_type, "")
+func is_full() -> bool:
+    return items.size() >= inventory_size
 
-func get_total_items() -> int:
-	var count: int = 0
-	for slot in items:
-		count += slot["count"]
-	return count
+func add_gold(amount: int):
+    gold += amount
 
-func get_free_slots() -> int:
-	return inventory_size - len(items)
+func remove_gold(amount: int) -> bool:
+    if gold >= amount:
+        gold -= amount
+        return true
+    return false
 
-func get_items_by_type(item_type: ItemType) -> Array:
-	return items.filter(func(item): return item["type"] == item_type)
+func get_gold() -> int:
+    return gold
 
-func has_item(item_id: String, count: int = 1) -> bool:
-	var slot: Dictionary = find_item(item_id)
-	return slot and slot["count"] >= count
+func use_item(index: int) -> bool:
+    if index < 0 or index >= items.size():
+        return false
+    
+    var item = items[index]
+    var item_type = item.get("type", "")
+    
+    match item_type:
+        "consumable":
+            return _use_consumable(item, index)
+        "equipment":
+            return _equip_item(item, index)
+    
+    return false
+
+func _use_consumable(item: Dictionary, index: int) -> bool:
+    var effect = item.get("effect", {})
+    
+    if "hp_restore" in effect:
+        if get_parent().has_method("add_to_base_stat"):
+            get_parent().add_to_base_stat("hp", effect["hp_restore"])
+    
+    if "mp_restore" in effect:
+        if get_parent().has_method("add_to_base_stat"):
+            get_parent().add_to_base_stat("mp", effect["mp_restore"])
+    
+    items.remove(index)
+    return true
+
+func _equip_item(item: Dictionary, index: int) -> bool:
+    if get_parent().has_method("equip_item"):
+        var success = get_parent().equip_item(item)
+        if success:
+            items.remove(index)
+            return true
+    return false
+
+func clear_inventory():
+    items.clear()

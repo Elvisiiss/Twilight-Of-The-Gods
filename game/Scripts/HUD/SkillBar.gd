@@ -1,50 +1,38 @@
-extends HUDElement
+extends Control
 
 var skill_buttons: Array = []
-var cooldown_masks: Array = []
 var skill_manager: SkillManager = null
 
 func _ready():
-	super._ready()
-	initialize_skill_bar()
+    skill_buttons = []
 
-func initialize_skill_bar():
-	for i in range(5):
-		var button: Button = get_node_or_null("Skill" + str(i + 1))
-		var mask: TextureProgress = get_node_or_null("CooldownMask" + str(i + 1))
-		
-		if button:
-			button.connect("pressed", self, "_on_skill_pressed", [i])
-			skill_buttons.append(button)
-		
-		if mask:
-			mask.visible = false
-			cooldown_masks.append(mask)
+func set_skill_manager(manager: SkillManager):
+    skill_manager = manager
 
-func setup_listeners():
-	if player and player.has_node("SkillManager"):
-		skill_manager = player.get_node("SkillManager")
+func add_skill_button(slot: String, icon_path: String):
+    var button = Button.new()
+    button.text = slot
+    button.set_icon(load(icon_path))
+    add_child(button)
+    skill_buttons.append({"slot": slot, "button": button})
 
-func update_hud():
-	if not skill_manager:
-		return
-	
-	for i in range(min(5, len(skill_buttons))):
-		var skill_id: String = "skill_" + str(i + 1)
-		var cooldown: float = skill_manager.get_skill_cooldown(skill_id)
-		
-		if cooldown > 0:
-			if i < len(cooldown_masks):
-				cooldown_masks[i].visible = true
-				cooldown_masks[i].value = cooldown
-				cooldown_masks[i].max_value = skill_manager.get_skill(skill_id).cooldown if skill_manager.get_skill(skill_id) else 1
-		else:
-			if i < len(cooldown_masks):
-				cooldown_masks[i].visible = false
+func update_cooldowns(delta: float):
+    if not skill_manager:
+        return
+    
+    for skill_data in skill_buttons:
+        var slot = skill_data["slot"]
+        var button = skill_data["button"]
+        var skill_id = skill_manager.get_skill_in_slot(slot)
+        
+        if skill_id:
+            var cooldown = skill_manager.get_cooldown(skill_id)
+            if cooldown > 0:
+                button.disabled = true
+                button.text = str(int(cooldown))
+            else:
+                button.disabled = false
+                button.text = ""
 
-func _on_skill_pressed(index: int):
-	if not skill_manager:
-		return
-	
-	var skill_id: String = "skill_" + str(index + 1)
-	skill_manager.cast_skill(skill_id, player.get_node("PlayerController").get_target())
+func _process(delta: float):
+    update_cooldowns(delta)

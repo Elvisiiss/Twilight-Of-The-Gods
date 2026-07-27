@@ -1,144 +1,174 @@
 extends Node
 
+enum CCType { STUN, SLOW, FREEZE, FEAR, SILENCE, ROOT }
+
 var active_cc_effects: Dictionary = {}
-var anti_cc_items: Dictionary = {}
 
 func _ready():
-	load_anti_cc_items()
+    active_cc_effects = {}
 
-func load_anti_cc_items():
-	anti_cc_items = {
-		"purification_amulet": {
-			"name": "净化玉坠",
-			"resistance": 0.8,
-			"max_resistance": 0.93,
-			"level": 1
-		}
-	}
+func apply_cc(target: Node, cc_type: CCType, duration: float, source: Node = null):
+    if target.has_method("get_stat"):
+        var crowd_control_resist = target.get_stat("crowd_control_resist")
+        var tenacity = target.get_stat("tenacity")
+        
+        var total_resist = crowd_control_resist + tenacity
+        var effective_duration = duration * (1 - total_resist)
+        
+        if effective_duration <= 0:
+            return
+        
+        var cc_effect = CCEffect.new(cc_type, effective_duration, source)
+        
+        if not target in active_cc_effects:
+            active_cc_effects[target] = []
+        
+        active_cc_effects[target].append(cc_effect)
+        
+        _apply_cc_effect(target, cc_effect)
 
-func apply_cc(target: Node, cc_effect: CCEffect):
-	if not is_valid_node(target):
-		return false
-	
-	if has_immunity(target, cc_effect):
-		return false
-	
-	var node_path: String = str(target.get_path())
-	if node_path not in active_cc_effects:
-		active_cc_effects[node_path] = []
-	
-	var tenacity: float = get_tenacity(target)
-	var final_duration: float = cc_effect.duration * (1 - tenacity)
-	
-	var reduced_effect: CCEffect = CCEffect.new(cc_effect.cc_type, final_duration, cc_effect.strength, cc_effect.source)
-	
-	if cc_effect.is_hard_cc:
-		for existing_effect in active_cc_effects[node_path]:
-			if existing_effect.is_hard_cc:
-				if reduced_effect.strength > existing_effect.strength:
-					active_cc_effects[node_path].erase(existing_effect)
-					active_cc_effects[node_path].append(reduced_effect)
-				return true
-			else:
-				active_cc_effects[node_path].erase(existing_effect)
-	
-	active_cc_effects[node_path].append(reduced_effect)
-	
-	if target.has_method("on_cc_applied"):
-		target.on_cc_applied(reduced_effect)
-	
-	EventBus.emit_buff_added(target, cc_effect.source)
-	
-	return true
+func remove_cc(target: Node, cc_type: CCType = null):
+    if not target in active_cc_effects:
+        return
+    
+    if cc_type == null:
+        for effect in active_cc_effects[target]:
+            _remove_cc_effect(target, effect)
+        active_cc_effects[target].clear()
+        active_cc_effects.erase(target)
+    else:
+        var to_remove: Array = []
+        for effect in active_cc_effects[target]:
+            if effect.cc_type == cc_type:
+                to_remove.append(effect)
+        
+        for effect in to_remove:
+            _remove_cc_effect(target, effect)
+            active_cc_effects[target].erase(effect)
+        
+        if active_cc_effects[target].empty():
+            active_cc_effects.erase(target)
 
-func has_immunity(target: Node, cc_effect: CCEffect) -> bool:
-	if target.has_node("TalentSystem"):
-		var talent_system: TalentSystem = target.get_node("TalentSystem")
-		for talent_id in talent_system.get_active_talent_ids():
-			var talent: TalentData = talent_system.get_talent(talent_id)
-			if talent and talent.effect_type == "immunity":
-				return true
-	
-	if target.has_node("CharacterStats"):
-		var stats: CharacterStats = target.get_node("CharacterStats")
-		var cc_resist: float = stats.get_stat("crowd_control_resist")
-		if randf() < cc_resist:
-			return true
-	
-	return false
+func update(delta: float):
+    var to_remove: Array = []
+    
+    for target in active_cc_effects:
+        var effects_to_remove: Array = []
+        
+        for effect in active_cc_effects[target]:
+            effect.duration -= delta
+            
+            if effect.duration <= 0:
+                effects_to_remove.append(effect)
+        
+        for effect in effects_to_remove:
+            _remove_cc_effect(target, effect)
+            active_cc_effects[target].erase(effect)
+        
+        if active_cc_effects[target].empty():
+            to_remove.append(target)
+    
+    for target in to_remove:
+        active_cc_effects.erase(target)
 
-func get_tenacity(target: Node) -> float:
-	if target.has_node("CharacterStats"):
-		var stats: CharacterStats = target.get_node("CharacterStats")
-		return stats.get_stat("tenacity")
-	return 0.0
+func is_cc_active(target: Node, cc_type: CCType = null) -> bool:
+    if not target in active_cc_effects:
+        return false
+    
+    if cc_type == null:
+        return active_cc_effects[target].size() > 0
+    
+    for effect in active_cc_effects[target]:
+        if effect.cc_type == cc_type:
+            return true
+    
+    return false
 
-func remove_cc(target: Node, cc_type: CCEffect.CCType = null):
-	var node_path: String = str(target.get_path())
-	if node_path not in active_cc_effects:
-		return
-	
-	if cc_type:
-		var to_remove: Array = []
-		for effect in active_cc_effects[node_path]:
-			if effect.cc_type == cc_type:
-				to_remove.append(effect)
-		
-		for effect in to_remove:
-			active_cc_effects[node_path].erase(effect)
-			EventBus.emit_buff_removed(target, effect.source)
-	else:
-		for effect in active_cc_effects[node_path]:
-			EventBus.emit_buff_removed(target, effect.source)
-		active_cc_effects.erase(node_path)
-	
-	if target.has_method("on_cc_removed"):
-		target.on_cc_removed()
+func get_cc_duration(target: Node, cc_type: CCType) -> float:
+    if not target in active_cc_effects:
+        return 0.0
+    
+    for effect in active_cc_effects[target]:
+        if effect.cc_type == cc_type:
+            return effect.duration
+    
+    return 0.0
 
-func update_cc_effects(delta: float):
-	var expired_paths: Array = []
-	
-	for node_path in active_cc_effects:
-		var target: Node = get_node_or_null(node_path)
-		if not target:
-			expired_paths.append(node_path)
-			continue
-		
-		var expired_effects: Array = []
-		for effect in active_cc_effects[node_path]:
-			effect.tick(delta)
-			if effect.is_expired():
-				expired_effects.append(effect)
-		
-		for effect in expired_effects:
-			active_cc_effects[node_path].erase(effect)
-			EventBus.emit_buff_removed(target, effect.source)
-		
-		if active_cc_effects[node_path].empty():
-			expired_paths.append(node_path)
-			if target.has_method("on_cc_removed"):
-				target.on_cc_removed()
-	
-	for path in expired_paths:
-		active_cc_effects.erase(path)
+func _apply_cc_effect(target: Node, effect: CCEffect):
+    match effect.cc_type:
+        CCType.STUN:
+            _apply_stun(target)
+        CCType.SLOW:
+            _apply_slow(target, 0.5)
+        CCType.FREEZE:
+            _apply_freeze(target)
+        CCType.FEAR:
+            _apply_fear(target)
+        CCType.SILENCE:
+            _apply_silence(target)
+        CCType.ROOT:
+            _apply_root(target)
 
-func is_cc_active(target: Node) -> bool:
-	var node_path: String = str(target.get_path())
-	return node_path in active_cc_effects and not active_cc_effects[node_path].empty()
+func _remove_cc_effect(target: Node, effect: CCEffect):
+    match effect.cc_type:
+        CCType.STUN:
+            _remove_stun(target)
+        CCType.SLOW:
+            _remove_slow(target)
+        CCType.FREEZE:
+            _remove_freeze(target)
+        CCType.FEAR:
+            _remove_fear(target)
+        CCType.SILENCE:
+            _remove_silence(target)
+        CCType.ROOT:
+            _remove_root(target)
 
-func has_hard_cc(target: Node) -> bool:
-	var node_path: String = str(target.get_path())
-	if node_path not in active_cc_effects:
-		return false
-	
-	for effect in active_cc_effects[node_path]:
-		if effect.is_hard_cc:
-			return true
-	
-	return false
+func _apply_stun(target: Node):
+    if target.has_method("set_stunned"):
+        target.set_stunned(true)
 
-func is_valid_node(node: Node) -> bool:
-	return node and is_instance_valid(node)
+func _remove_stun(target: Node):
+    if target.has_method("set_stunned"):
+        target.set_stunned(false)
 
-func _process(delta: float):
-	update_cc_effects(delta)
+func _apply_slow(target: Node, slow_amount: float):
+    if target.has_method("add_modifier"):
+        var modifier = StatModifier.new("move_speed", -slow_amount, StatModifier.ModifierType.MULTIPLICATIVE, "cc_slow")
+        target.add_modifier(modifier)
+
+func _remove_slow(target: Node):
+    if target.has_method("remove_modifier"):
+        target.remove_modifier("cc_slow")
+
+func _apply_freeze(target: Node):
+    if target.has_method("set_frozen"):
+        target.set_frozen(true)
+
+func _remove_freeze(target: Node):
+    if target.has_method("set_frozen"):
+        target.set_frozen(false)
+
+func _apply_fear(target: Node):
+    if target.has_method("set_fearing"):
+        target.set_fearing(true)
+
+func _remove_fear(target: Node):
+    if target.has_method("set_fearing"):
+        target.set_fearing(false)
+
+func _apply_silence(target: Node):
+    if target.has_method("set_silenced"):
+        target.set_silenced(true)
+
+func _remove_silence(target: Node):
+    if target.has_method("set_silenced"):
+        target.set_silenced(false)
+
+func _apply_root(target: Node):
+    if target.has_method("set_rooted"):
+        target.set_rooted(true)
+
+func _remove_root(target: Node):
+    if target.has_method("set_rooted"):
+        target.set_rooted(false)

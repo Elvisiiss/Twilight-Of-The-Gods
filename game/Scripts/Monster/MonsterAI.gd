@@ -1,165 +1,210 @@
-extends Node
+extends KinematicBody2D
 
-enum AIState {
-	PATROL,
-	CHASE,
-	ATTACK,
-	RETURN,
-	DEAD
-}
+enum AIState { IDLE, PATROL, CHASE, ATTACK, RETURN }
 
-var state: AIState = AIState.PATROL
-var monster_data: MonsterData = null
-var monster_stats: MonsterStats = null
-var hate_system: HateSystem = null
+var ai_state: AIState = AIState.IDLE
+var monster_data: Dictionary = {}
 var target: Node = null
-var home_position: Vector2 = Vector2.ZERO
-var current_patrol_point: Vector2 = Vector2.ZERO
+var current_hp: float = 0.0
+var max_hp: float = 0.0
+var attack: float = 0.0
+var armor: float = 0.0
+var magic_resist: float = 0.0
+var exp_reward: float = 0.0
+
+var move_speed: float = 100.0
+var attack_range: float = 100.0
+var chase_range: float = 300.0
+var patrol_points: Array = []
+var current_patrol_index: int = 0
 var attack_cooldown: float = 0.0
-var attack_range: float = 50.0
+var last_attack_time: float = 0.0
+var home_position: Vector2 = Vector2.ZERO
+
+onready var sprite = $MonsterSprite
+onready var collision_shape = $CollisionShape2D
 
 func _ready():
-	hate_system = HateSystem.new()
-	add_child(hate_system)
+    set_physics_process(true)
+    set_process(true)
+    home_position = global_position
 
-func setup(monster_data: MonsterData, stats: MonsterStats):
-	self.monster_data = monster_data
-	self.monster_stats = stats
-	home_position = get_parent().global_position
-	current_patrol_point = get_random_patrol_point()
-	attack_range = monster_data.aggro_range / 3
+func init_monster(data: Dictionary):
+    monster_data = data
+    max_hp = data.get("hp", 100)
+    current_hp = max_hp
+    attack = data.get("attack", 10)
+    armor = data.get("armor", 0)
+    magic_resist = data.get("magic_resist", 0)
+    exp_reward = data.get("exp_reward", 10)
+    move_speed = data.get("move_speed", 100)
+    
+    var patrol_radius = 100.0
+    for i in range(4):
+        var angle = (i / 4.0) * PI * 2
+        var point = home_position + Vector2(cos(angle), sin(angle)) * patrol_radius
+        patrol_points.append(point)
 
 func _physics_process(delta: float):
-	if state == AIState.DEAD:
-		return
-	
-	if attack_cooldown > 0:
-		attack_cooldown -= delta
-	
-	match state:
-		AIState.PATROL:
-			patrol(delta)
-		AIState.CHASE:
-			chase(delta)
-		AIState.ATTACK:
-			attack(delta)
-		AIState.RETURN:
-			return_to_home(delta)
+    if current_hp <= 0:
+        return
+    
+    _update_state(delta)
+    _execute_state(delta)
 
-func patrol(delta: float):
-	var parent: Node2D = get_parent() as Node2D
-	if not parent:
-		return
-	
-	var distance_to_patrol: float = parent.global_position.distance_to(current_patrol_point)
-	
-	if distance_to_patrol < 10:
-		current_patrol_point = get_random_patrol_point()
-	
-	var direction: Vector2 = (current_patrol_point - parent.global_position).normalized()
-	var speed: float = monster_stats.get_stat("move_speed") * 0.5
-	parent.move_and_slide(direction * speed)
-	
-	check_aggro()
+func _update_state(delta: float):
+    var player = _find_player()
+    
+    if player:
+        var distance = global_position.distance_to(player.global_position)
+        
+        if distance <= attack_range:
+            ai_state = AIState.ATTACK
+            target = player
+        elif distance <= chase_range:
+            ai_state = AIState.CHASE
+            target = player
+        else:
+            if ai_state == AIState.CHASE or ai_state == AIState.ATTACK:
+                ai_state = AIState.RETURN
+            else:
+                ai_state = AIState.PATROL
+    else:
+        if ai_state == AIState.CHASE or ai_state == AIState.ATTACK:
+            ai_state = AIState.RETURN
+        else:
+            ai_state = AIState.PATROL
 
-func get_random_patrol_point() -> Vector2:
-	var angle: float = rand_range(0, TAU)
-	var radius: float = rand_range(0, monster_data.patrol_radius)
-	return home_position + Vector2(cos(angle), sin(angle)) * radius
+func _execute_state(delta: float):
+    match ai_state:
+        AIState.IDLE:
+            _do_idle(delta)
+        AIState.PATROL:
+            _do_patrol(delta)
+        AIState.CHASE:
+            _do_chase(delta)
+        AIState.ATTACK:
+            _do_attack(delta)
+        AIState.RETURN:
+            _do_return(delta)
 
-func check_aggro():
-	var parent: Node2D = get_parent() as Node2D
-	if not parent:
-		return
-	
-	var players: Array = get_tree().get_nodes_in_group("players")
-	for player in players:
-		var distance: float = parent.global_position.distance_to(player.global_position)
-		if distance <= monster_data.aggro_range:
-			hate_system.add_hate(player, 10.0)
-			target = player
-			state = AIState.CHASE
-			return
+func _do_idle(delta: float):
+    pass
 
-func chase(delta: float):
-	if not target or not is_instance_valid(target):
-		state = AIState.RETURN
-		return
-	
-	var parent: Node2D = get_parent() as Node2D
-	if not parent:
-		return
-	
-	var distance: float = parent.global_position.distance_to(target.global_position)
-	
-	if distance > monster_data.chase_range:
-		hate_system.clear_hate()
-		state = AIState.RETURN
-		return
-	
-	if distance <= attack_range:
-		state = AIState.ATTACK
-		return
-	
-	var direction: Vector2 = (target.global_position - parent.global_position).normalized()
-	var speed: float = monster_stats.get_stat("move_speed")
-	parent.move_and_slide(direction * speed)
+func _do_patrol(delta: float):
+    if patrol_points.empty():
+        return
+    
+    var target_point = patrol_points[current_patrol_index]
+    var direction = (target_point - global_position).normalized()
+    var velocity = direction * move_speed
+    
+    move_and_slide(velocity, Vector2.ZERO)
+    
+    if global_position.distance_to(target_point) < 10:
+        current_patrol_index = (current_patrol_index + 1) % patrol_points.size()
+    
+    if sprite:
+        sprite.flip_h = direction.x < 0
 
-func attack(delta: float):
-	if not target or not is_instance_valid(target):
-		state = AIState.CHASE
-		return
-	
-	var parent: Node2D = get_parent() as Node2D
-	if not parent:
-		return
-	
-	var distance: float = parent.global_position.distance_to(target.global_position)
-	
-	if distance > attack_range:
-		state = AIState.CHASE
-		return
-	
-	if attack_cooldown <= 0:
-		perform_attack()
-		attack_cooldown = 1.0 / monster_stats.get_stat("attack_speed")
+func _do_chase(delta: float):
+    if not target or not is_instance_valid(target):
+        ai_state = AIState.RETURN
+        return
+    
+    var direction = (target.global_position - global_position).normalized()
+    var velocity = direction * move_speed * 1.2
+    
+    move_and_slide(velocity, Vector2.ZERO)
+    
+    if sprite:
+        sprite.flip_h = direction.x < 0
 
-func perform_attack():
-	if not target or not target.has_method("take_damage"):
-		return
-	
-	var damage: float = monster_stats.get_stat("attack")
-	target.take_damage(damage, "monster_attack")
-	
-	hate_system.add_hate(target, 5.0)
+func _do_attack(delta: float):
+    if not target or not is_instance_valid(target):
+        ai_state = AIState.PATROL
+        return
+    
+    var now = OS.get_ticks_msec() / 1000.0
+    if now - last_attack_time >= attack_cooldown:
+        last_attack_time = now
+        
+        if target.has_method("take_damage"):
+            target.take_damage(attack, "physical")
+        
+        attack_cooldown = 1.0
 
-func return_to_home(delta: float):
-	var parent: Node2D = get_parent() as Node2D
-	if not parent:
-		return
-	
-	var distance: float = parent.global_position.distance_to(home_position)
-	
-	if distance < 10:
-		state = AIState.PATROL
-		current_patrol_point = get_random_patrol_point()
-		return
-	
-	var direction: Vector2 = (home_position - parent.global_position).normalized()
-	var speed: float = monster_stats.get_stat("move_speed") * 0.7
-	parent.move_and_slide(direction * speed)
+func _do_return(delta: float):
+    var direction = (home_position - global_position).normalized()
+    var velocity = direction * move_speed
+    
+    move_and_slide(velocity, Vector2.ZERO)
+    
+    if global_position.distance_to(home_position) < 10:
+        ai_state = AIState.PATROL
+    
+    if sprite:
+        sprite.flip_h = direction.x < 0
 
-func on_damage(damage: float, attacker: Node):
-	hate_system.add_hate(attacker, damage * 2)
-	
-	if state == AIState.PATROL:
-		target = attacker
-		state = AIState.CHASE
+func _find_player() -> Node:
+    for node in get_tree().get_nodes_in_group("players"):
+        return node
+    return null
 
-func on_death():
-	state = AIState.DEAD
-	hate_system.clear_hate()
+func take_damage(damage: float, damage_type: String):
+    if current_hp <= 0:
+        return
+    
+    var actual_damage = damage
+    
+    match damage_type:
+        "physical":
+            actual_damage = damage * (1 - armor / (armor + 100))
+        "magical":
+            actual_damage = damage * (1 - magic_resist / (magic_resist + 100))
+        "true":
+            pass
+        "percentage":
+            actual_damage = max_hp * (damage / 100.0)
+    
+    current_hp = max(0, current_hp - actual_damage)
+    
+    if current_hp <= 0:
+        die()
 
-func on_respawn():
-	state = AIState.PATROL
-	hate_system.clear_hate()
+func die():
+    queue_free()
+    
+    var player = _find_player()
+    if player and player.has_method("gain_experience"):
+        player.gain_experience(exp_reward)
+    
+    _drop_items()
+
+func _drop_items():
+    var drops = monster_data.get("drops", [])
+    var drop_chances = monster_data.get("drop_chance", [])
+    
+    for i in range(drops.size()):
+        var drop_id = drops[i]
+        var chance = drop_chances[i] if i < drop_chances.size() else 0.1
+        
+        if rand_range(0, 1) < chance:
+            var data_manager = DataManager.new()
+            data_manager.init()
+            var item_data = data_manager.get_item(drop_id)
+            
+            var player = _find_player()
+            if player and player.has_method("add_item"):
+                player.add_item(item_data)
+
+func get_hp_percentage() -> float:
+    if max_hp <= 0:
+        return 0.0
+    return (current_hp / max_hp) * 100.0
+
+func get_max_hp() -> float:
+    return max_hp
+
+func get_current_hp() -> float:
+    return current_hp

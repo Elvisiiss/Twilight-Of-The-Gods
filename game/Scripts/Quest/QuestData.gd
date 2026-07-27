@@ -1,77 +1,55 @@
-class QuestData:
-	enum QuestType {
-		MAIN,
-		SIDE,
-		DUNGEON,
-		Daily,
-		Guild,
-		PK
-	}
-	
-	enum QuestStatus {
-		AVAILABLE,
-		ACCEPTED,
-		IN_PROGRESS,
-		COMPLETED,
-		REWARDED
-	}
-	
-	enum ObjectiveType {
-		KILL,
-		COLLECT,
-		DELIVER,
-		REACH,
-		TALK,
-		USE,
-		ESCORT,
-		SURVIVE
-	}
-	
-	var id: String
-	var name: String
-	var description: String
-	var quest_type: QuestType
-	var status: QuestStatus
-	var required_level: int
-	var required_quests: Array
-	var objectives: Array
-	var rewards: Dictionary
-	var start_npc: String
-	var end_npc: String
-	var is_repeatable: bool
-	var repeat_cooldown: float
-	var priority: int
-	
-	func _init():
-		self.id = ""
-		self.name = ""
-		self.description = ""
-		self.quest_type = QuestType.MAIN
-		self.status = QuestStatus.AVAILABLE
-		self.required_level = 1
-		self.required_quests = []
-		self.objectives = []
-		self.rewards = {}
-		self.start_npc = ""
-		self.end_npc = ""
-		self.is_repeatable = false
-		self.repeat_cooldown = 0.0
-		self.priority = 1
-	
-	static func from_dict(data: Dictionary) -> QuestData:
-		var quest: QuestData = QuestData.new()
-		quest.id = data.get("id", "")
-		quest.name = data.get("name", "")
-		quest.description = data.get("description", "")
-		quest.quest_type = data.get("quest_type", QuestType.MAIN)
-		quest.status = data.get("status", QuestStatus.AVAILABLE)
-		quest.required_level = data.get("required_level", 1)
-		quest.required_quests = data.get("required_quests", [])
-		quest.objectives = data.get("objectives", [])
-		quest.rewards = data.get("rewards", {})
-		quest.start_npc = data.get("start_npc", "")
-		quest.end_npc = data.get("end_npc", "")
-		quest.is_repeatable = data.get("is_repeatable", false)
-		quest.repeat_cooldown = data.get("repeat_cooldown", 0.0)
-		quest.priority = data.get("priority", 1)
-		return quest
+extends Node
+
+var quest_id: String = ""
+var name: String = ""
+var description: String = ""
+var quest_type: String = ""
+var target: String = ""
+var count: int = 1
+var rewards: Dictionary = {}
+var level_requirement: int = 1
+var is_repeatable: bool = false
+var prerequisites: Array = []
+
+func _ready():
+    pass
+
+func _init(p_data: Dictionary):
+    quest_id = p_data.get("id", "")
+    name = p_data.get("name", "")
+    description = p_data.get("description", "")
+    quest_type = p_data.get("type", "")
+    target = p_data.get("target", "")
+    count = p_data.get("count", 1)
+    rewards = p_data.get("rewards", {})
+    level_requirement = p_data.get("level_requirement", 1)
+    is_repeatable = p_data.get("repeatable", false)
+    prerequisites = p_data.get("prerequisites", [])
+
+func is_available(character_level: int, completed_quests: Array) -> bool:
+    if character_level < level_requirement:
+        return false
+    
+    for prereq in prerequisites:
+        if prereq not in completed_quests:
+            return false
+    
+    return true
+
+func is_kill_quest() -> bool:
+    return quest_type == "kill"
+
+func is_collect_quest() -> bool:
+    return quest_type == "collect"
+
+func is_boss_quest() -> bool:
+    return quest_type == "boss"
+
+func get_reward_exp() -> int:
+    return rewards.get("exp", 0)
+
+func get_reward_gold() -> int:
+    return rewards.get("gold", 0)
+
+func get_reward_item() -> String:
+    return rewards.get("item", "")

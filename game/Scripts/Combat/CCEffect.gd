@@ -1,38 +1,35 @@
-class CCEffect:
-	enum CCType {
-		STUN,
-		FROZEN,
-		PETRIFY,
-		KNOCKUP,
-		SLEEP,
-		BANISH,
-		SLOW,
-		ROOT,
-		BLIND,
-		SILENCE,
-		DISARM
-	}
-	
-	var cc_type: CCType
-	var duration: float
-	var remaining_duration: float
-	var strength: float
-	var source: String
-	var is_hard_cc: bool
-	
-	func _init(cc_type: CCType, duration: float, strength: float = 1.0, source: String = ""):
-		self.cc_type = cc_type
-		self.duration = duration
-		self.remaining_duration = duration
-		self.strength = strength
-		self.source = source
-		self.is_hard_cc = cc_type in [CCType.STUN, CCType.FROZEN, CCType.PETRIFY, CCType.KNOCKUP, CCType.SLEEP, CCType.BANISH]
-	
-	func tick(delta: float):
-		remaining_duration -= delta
-	
-	func is_expired() -> bool:
-		return remaining_duration <= 0
-	
-	func get_effect_value() -> float:
-		return strength * (remaining_duration / duration)
+extends Node
+
+enum CCType { STUN, SLOW, FREEZE, FEAR, SILENCE, ROOT }
+
+var cc_type: CCType = CCType.STUN
+var duration: float = 0.0
+var source: Node = null
+var is_active: bool = true
+
+func _ready():
+    pass
+
+func _init(p_cc_type: CCType, p_duration: float, p_source: Node = null):
+    cc_type = p_cc_type
+    duration = p_duration
+    source = p_source
+    is_active = true
+
+func get_cc_type() -> CCType:
+    return cc_type
+
+func get_duration() -> float:
+    return duration
+
+func get_source() -> Node:
+    return source
+
+func is_expired() -> bool:
+    return duration <= 0
+
+func update(delta: float):
+    if is_active:
+        duration -= delta
+        if duration <= 0:
+            is_active = false
