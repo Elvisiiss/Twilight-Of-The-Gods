@@ -1,9 +1,0 @@
-Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
-Vulkan 1.3.277 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 3050 Laptop GPU
-
-ERROR: Parse Error: Parse error. [Resource file res://Scenes/Main.tscn:19]
-   at: _parse_node_tag (scene/resources/resource_format_text.cpp:293)
-ERROR: Failed loading resource: res://Scenes/Main.tscn.
-   at: _load (core/io/resource_loader.cpp:317)
-ERROR: Failed loading scene: res://Scenes/Main.tscn.
-   at: start (main/main.cpp:4763)
