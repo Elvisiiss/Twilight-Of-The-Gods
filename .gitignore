@@ -15,6 +15,7 @@ replay_pid*
 game/build/
 game/.import/
 game/.mono/
+game/.godot/
 *.pck
 *.exe
 *.debug
@@ -25,5 +26,13 @@ game/.mono/
 *.bak
 *.tmp
 *.import
+*.uid
 .import/
 .mono/
+.godot/
+
+game/error_log*.txt
+game/final_log.txt
+game/simple_log*.txt
+game/test_log*.txt
+game/window_log.txt
