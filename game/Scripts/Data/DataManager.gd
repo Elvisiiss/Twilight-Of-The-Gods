@@ -22,13 +22,13 @@ func load_all_data():
 
 func load_json_data(file_name: String, target_dict: Dictionary):
 	var path: String = "res://Data/%s.json" % file_name
-	var file: File = File.new()
-	if file.file_exists(path):
-		file.open(path, File.READ)
-		var content: String = file.get_as_text()
-		file.close()
-		var data: Dictionary = JSON.new().parse(content).result
-		target_dict.merge(data)
+	if FileAccess.file_exists(path):
+		var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+		if file:
+			var content: String = file.get_as_text()
+			file.close()
+			var data: Dictionary = JSON.new().parse(content).result
+			target_dict.merge(data)
 
 func get_character_stats(id: String) -> Dictionary:
 	return character_stats_data.get(id, {})

@@ -46,8 +46,8 @@ func change_state(new_state: GameState):
 			_on_respawn()
 
 func _on_boot():
-	EventBus.connect("on_death", self, "_on_player_death")
-	EventBus.connect("on_revive", self, "_on_player_revive")
+	EventBus.on_death.connect(_on_player_death)
+	EventBus.on_revive.connect(_on_player_revive)
 	change_state(GameState.LOGIN)
 
 func _on_login():

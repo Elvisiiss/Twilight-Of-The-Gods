@@ -1,64 +1,61 @@
-[gd_resource type="ProjectSettings" load_steps=1 format=3]
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
 
-[resource]
-application/config/name = "诸神黄昏"
-application/config/icon = "res://icon.png"
-application/run/main_scene = "res://Scenes/Main.tscn"
+config_version=5
 
-display/window/size/width = 800
-display/window/size/height = 600
-display/window/title = "诸神黄昏"
-display/window/resizable = false
+[application]
 
-input/mouse_cursor/hidden = false
-input/mouse_cursor/use_custom_cursor = false
+config/name="Twilight of the Gods"
+run/main_scene="res://Scenes/Main.tscn"
+config/features=PackedStringArray("4.7")
+config/icon="res://icon.png"
 
-autoload/0/name = "EventBus"
-autoload/0/path = "res://Scripts/Core/EventBus.gd"
-autoload/1/name = "GameManager"
-autoload/1/path = "res://Scripts/Core/GameManager.gd"
-autoload/2/name = "DataManager"
-autoload/2/path = "res://Scripts/Data/DataManager.gd"
-autoload/3/name = "InputManager"
-autoload/3/path = "res://Scripts/Core/InputManager.gd"
-autoload/4/name = "ObjectPool"
-autoload/4/path = "res://Scripts/Core/ObjectPool.gd"
-autoload/5/name = "MapManager"
-autoload/5/path = "res://Scripts/World/MapManager.gd"
-autoload/6/name = "QuestManager"
-autoload/6/path = "res://Scripts/Quest/QuestManager.gd"
-autoload/7/name = "DamageSystem"
-autoload/7/path = "res://Scripts/Combat/DamageSystem.gd"
-autoload/8/name = "CCSystem"
-autoload/8/path = "res://Scripts/Combat/CCSystem.gd"
-autoload/9/name = "PKSystem"
-autoload/9/path = "res://Scripts/Combat/PKSystem.gd"
+[autoload]
 
-input/action_map/move_up/deadzone = 0.5
-input/action_map/move_up/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_W, physical_keycode=KEY_W, unicode=0, echo=false, pressed=false), Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_UP, physical_keycode=KEY_UP, unicode=0, echo=false, pressed=false) ]
-input/action_map/move_down/deadzone = 0.5
-input/action_map/move_down/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_S, physical_keycode=KEY_S, unicode=0, echo=false, pressed=false), Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_DOWN, physical_keycode=KEY_DOWN, unicode=0, echo=false, pressed=false) ]
-input/action_map/move_left/deadzone = 0.5
-input/action_map/move_left/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_A, physical_keycode=KEY_A, unicode=0, echo=false, pressed=false), Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_LEFT, physical_keycode=KEY_LEFT, unicode=0, echo=false, pressed=false) ]
-input/action_map/move_right/deadzone = 0.5
-input/action_map/move_right/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_D, physical_keycode=KEY_D, unicode=0, echo=false, pressed=false), Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_RIGHT, physical_keycode=KEY_RIGHT, unicode=0, echo=false, pressed=false) ]
-input/action_map/attack/deadzone = 0.5
-input/action_map/attack/events = [ Object(InputEventMouseButton, resource_local_to_scene=false, resource_name="", button_index=1, pressed=false), Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_J, physical_keycode=KEY_J, unicode=0, echo=false, pressed=false) ]
-input/action_map/skill_1/deadzone = 0.5
-input/action_map/skill_1/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_Q, physical_keycode=KEY_Q, unicode=0, echo=false, pressed=false) ]
-input/action_map/skill_2/deadzone = 0.5
-input/action_map/skill_2/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_E, physical_keycode=KEY_E, unicode=0, echo=false, pressed=false) ]
-input/action_map/skill_3/deadzone = 0.5
-input/action_map/skill_3/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_R, physical_keycode=KEY_R, unicode=0, echo=false, pressed=false) ]
-input/action_map/skill_4/deadzone = 0.5
-input/action_map/skill_4/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_T, physical_keycode=KEY_T, unicode=0, echo=false, pressed=false) ]
-input/action_map/skill_5/deadzone = 0.5
-input/action_map/skill_5/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_Y, physical_keycode=KEY_Y, unicode=0, echo=false, pressed=false) ]
-input/action_map/dodge/deadzone = 0.5
-input/action_map/dodge/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_SPACE, physical_keycode=KEY_SPACE, unicode=0, echo=false, pressed=false) ]
-input/action_map/open_inventory/deadzone = 0.5
-input/action_map/open_inventory/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_I, physical_keycode=KEY_I, unicode=0, echo=false, pressed=false) ]
-input/action_map/open_character/deadzone = 0.5
-input/action_map/open_character/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_C, physical_keycode=KEY_C, unicode=0, echo=false, pressed=false) ]
-input/action_map/open_quest/deadzone = 0.5
-input/action_map/open_quest/events = [ Object(InputEventKey, resource_local_to_scene=false, resource_name="", keycode=KEY_L, physical_keycode=KEY_L, unicode=0, echo=false, pressed=false) ]
+0/name="EventBus"
+0/path="res://Scripts/Core/EventBus.gd"
+0/enabled=true
+1/name="GameManager"
+1/path="res://Scripts/Core/GameManager.gd"
+1/enabled=true
+2/name="DataManager"
+2/path="res://Scripts/Data/DataManager.gd"
+2/enabled=true
+3/name="InputManager"
+3/path="res://Scripts/Core/InputManager.gd"
+3/enabled=true
+4/name="ObjectPool"
+4/path="res://Scripts/Core/ObjectPool.gd"
+4/enabled=true
+5/name="MapManager"
+5/path="res://Scripts/World/MapManager.gd"
+5/enabled=true
+6/name="QuestManager"
+6/path="res://Scripts/Quest/QuestManager.gd"
+6/enabled=true
+7/name="DamageSystem"
+7/path="res://Scripts/Combat/DamageSystem.gd"
+7/enabled=true
+8/name="CCSystem"
+8/path="res://Scripts/Combat/CCSystem.gd"
+8/enabled=true
+9/name="PKSystem"
+9/path="res://Scripts/Combat/PKSystem.gd"
+9/enabled=true
+
+[display]
+
+window/size/viewport_width=800
+window/size/viewport_height=600
+window/title="Twilight of the Gods"
+window/resizable=false
+
+[input]
+
+mouse_cursor/hidden=false
+mouse_cursor/use_custom_cursor=false

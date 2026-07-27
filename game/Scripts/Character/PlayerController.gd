@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 enum CharacterState {
 	IDLE,
@@ -93,7 +93,7 @@ func perform_attack():
 	
 	attack_system.perform_attack(get_target())
 	
-	last_attack_time = OS.get_ticks_msec()
+	last_attack_time = Time.get_ticks_msec()
 	
 	for talent_id in talent_system.get_active_talent_ids():
 		var talent: TalentData = talent_system.get_talent(talent_id)
@@ -133,7 +133,11 @@ func take_damage(damage: float, damage_type: String):
 		on_death()
 	else:
 		state = CharacterState.HURT
-		get_tree().create_timer(0.2).connect("timeout", self, "_on_hurt_end")
+		var timer: Timer = Timer.new()
+		timer.wait_time = 0.2
+		timer.autostart = true
+		timer.timeout.connect(_on_hurt_end)
+		add_child(timer)
 
 func on_death():
 	state = CharacterState.DEAD
@@ -148,7 +152,7 @@ func _on_hurt_end():
 		state = CharacterState.IDLE
 
 func update_animation():
-	var sprite: Sprite = $Sprite
+	var sprite: Sprite2D = $Sprite
 	if sprite:
 		match state:
 			CharacterState.IDLE:

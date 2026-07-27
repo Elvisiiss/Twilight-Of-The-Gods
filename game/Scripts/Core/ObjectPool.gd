@@ -22,8 +22,8 @@ func create_pool(pool_name: String, scene: PackedScene, initial_count: int = 10)
 	for i in range(initial_count):
 		var obj: Node = scene.instance()
 		obj.visible = false
-		obj.set_process(false)
-		obj.set_physics_process(false)
+		obj.process_mode = Node.PROCESS_MODE_DISABLED
+		obj.physics_process_mode = Node.PROCESS_MODE_DISABLED
 		add_child(obj)
 		pools[pool_name]["objects"].append(obj)
 
@@ -39,8 +39,8 @@ func get_object(pool_name: String) -> Node:
 		var obj: Node = pool["objects"].pop_front()
 	
 	obj.visible = true
-	obj.set_process(true)
-	obj.set_physics_process(true)
+	obj.process_mode = Node.PROCESS_MODE_INHERIT
+	obj.physics_process_mode = Node.PROCESS_MODE_INHERIT
 	pool["active"].append(obj)
 	return obj
 
@@ -52,8 +52,8 @@ func return_object(pool_name: String, obj: Node):
 	if obj in pool["active"]:
 		pool["active"].erase(obj)
 		obj.visible = false
-		obj.set_process(false)
-		obj.set_physics_process(false)
+		obj.process_mode = Node.PROCESS_MODE_DISABLED
+		obj.physics_process_mode = Node.PROCESS_MODE_DISABLED
 		obj.global_position = Vector2.ZERO
 		pool["objects"].append(obj)
 

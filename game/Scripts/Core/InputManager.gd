@@ -70,19 +70,19 @@ func set_input_enabled(enabled: bool):
 	is_input_enabled = enabled
 
 func save_bindings():
-	var file: File = File.new()
-	file.open("user://key_bindings.json", File.WRITE)
-	file.store_string(JSON.new().print(key_bindings))
-	file.close()
+	var file: FileAccess = FileAccess.open("user://key_bindings.json", FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.new().print(key_bindings))
+		file.close()
 
 func load_bindings():
-	var file: File = File.new()
-	if file.file_exists("user://key_bindings.json"):
-		file.open("user://key_bindings.json", File.READ)
-		var content: String = file.get_as_text()
-		file.close()
-		var data: Dictionary = JSON.new().parse(content).result
-		key_bindings.merge(data)
+	if FileAccess.file_exists("user://key_bindings.json"):
+		var file: FileAccess = FileAccess.open("user://key_bindings.json", FileAccess.READ)
+		if file:
+			var content: String = file.get_as_text()
+			file.close()
+			var data: Dictionary = JSON.new().parse(content).result
+			key_bindings.merge(data)
 
 func _input(event: InputEvent):
 	if not is_input_enabled:
