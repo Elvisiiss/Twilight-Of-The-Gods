@@ -1,41 +1,23 @@
 [gd_scene load_steps=3 format=4]
 
-[sub_resource type="RectangleShape2D" id="PlayerShape"]
-size = Vector2(30, 50)
-
-[sub_resource type="RectangleShape2D" id="GroundShape"]
-size = Vector2(2000, 100)
-
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="PlayerController"]
 
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="GameManager"]
+
 [node name="Main" type="Node2D"]
+script = ExtResource("GameManager")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="World" type="Node2D" parent="."]
+[node name="Background" type="ColorRect" parent="."]
+position = Vector2(0, 0)
+size = Vector2(800, 600)
 
-[node name="Background" type="ColorRect" parent="World"]
-position = Vector2(-1000, -500)
-size = Vector2(2000, 1500)
-
-[node name="Ground" type="StaticBody2D" parent="World"]
-position = Vector2(0, 550)
-
-[node name="GroundCollision" type="CollisionShape2D" parent="World/Ground"]
-shape = SubResource("GroundShape")
-
-[node name="GroundSprite" type="ColorRect" parent="World/Ground"]
-position = Vector2(-1000, -50)
-size = Vector2(2000, 100)
-
-[node name="Player" type="CharacterBody2D" parent="World"]
+[node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(400, 300)
 script = ExtResource("PlayerController")
 
-[node name="PlayerSprite" type="ColorRect" parent="World/Player"]
+[node name="PlayerSprite" type="ColorRect" parent="Player"]
 position = Vector2(-15, -50)
 size = Vector2(30, 50)
-
-[node name="PlayerCollision" type="CollisionShape2D" parent="World/Player"]
-shape = SubResource("PlayerShape")

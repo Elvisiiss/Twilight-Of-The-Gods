@@ -1,21 +1,17 @@
 extends CharacterBody2D
 
 @export var speed: float = 300.0
-@export var gravity: float = 2000.0
-@export var jump_force: float = -700.0
-
-var velocity: Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float):
     var input_dir: Vector2 = Vector2.ZERO
     
-    if Input.is_key_pressed(Key.A) or Input.is_key_pressed(Key.LEFT):
+    if Input.is_key_pressed(Key.KEY_A) or Input.is_key_pressed(Key.KEY_LEFT):
         input_dir.x -= 1
-    if Input.is_key_pressed(Key.D) or Input.is_key_pressed(Key.RIGHT):
+    if Input.is_key_pressed(Key.KEY_D) or Input.is_key_pressed(Key.KEY_RIGHT):
         input_dir.x += 1
-    if Input.is_key_pressed(Key.W) or Input.is_key_pressed(Key.UP):
+    if Input.is_key_pressed(Key.KEY_W) or Input.is_key_pressed(Key.KEY_UP):
         input_dir.y -= 1
-    if Input.is_key_pressed(Key.S) or Input.is_key_pressed(Key.DOWN):
+    if Input.is_key_pressed(Key.KEY_S) or Input.is_key_pressed(Key.KEY_DOWN):
         input_dir.y += 1
     
     if input_dir.length() > 0:
