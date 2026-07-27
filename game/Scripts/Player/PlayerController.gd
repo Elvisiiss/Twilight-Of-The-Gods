@@ -1,35 +1,29 @@
 extends CharacterBody2D
 
-var speed: float = 300.0
-var camera: Camera2D = null
+@export var speed: float = 300.0
+@export var gravity: float = 2000.0
+@export var jump_force: float = -700.0
 
-func _ready():
-	camera = get_parent().get_parent().get_node("Camera2D")
+var velocity: Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float):
-	var input_dir: Vector2 = Vector2.ZERO
-	
-	if Input.is_action_pressed("ui_left") or Input.is_key_pressed(Key.A):
-		input_dir.x -= 1
-	if Input.is_action_pressed("ui_right") or Input.is_key_pressed(Key.D):
-		input_dir.x += 1
-	if Input.is_action_pressed("ui_up") or Input.is_key_pressed(Key.W):
-		input_dir.y -= 1
-	if Input.is_action_pressed("ui_down") or Input.is_key_pressed(Key.S):
-		input_dir.y += 1
-	
-	if input_dir.length() > 0:
-		input_dir = input_dir.normalized()
-		velocity = input_dir * speed
-		move_and_slide()
-		
-		if camera:
-			camera.position = global_position
-
-	if Input.is_action_just_pressed("ui_accept"):
-		print("Attack!")
-	
-	if Input.is_action_just_pressed("ui_cancel"):
-		var dodge_dir: Vector2 = input_dir if input_dir.length() > 0 else Vector2.RIGHT
-		velocity = dodge_dir * 500
-		move_and_slide()
+    var input_dir: Vector2 = Vector2.ZERO
+    
+    if Input.is_key_pressed(Key.A) or Input.is_key_pressed(Key.LEFT):
+        input_dir.x -= 1
+    if Input.is_key_pressed(Key.D) or Input.is_key_pressed(Key.RIGHT):
+        input_dir.x += 1
+    if Input.is_key_pressed(Key.W) or Input.is_key_pressed(Key.UP):
+        input_dir.y -= 1
+    if Input.is_key_pressed(Key.S) or Input.is_key_pressed(Key.DOWN):
+        input_dir.y += 1
+    
+    if input_dir.length() > 0:
+        input_dir = input_dir.normalized()
+        velocity.x = input_dir.x * speed
+        velocity.y = input_dir.y * speed
+    else:
+        velocity.x = move_toward(velocity.x, 0, speed)
+        velocity.y = move_toward(velocity.y, 0, speed)
+    
+    move_and_slide()

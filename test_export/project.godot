@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Twilight of the Gods"
+config/name="Test Export"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.7")
 
@@ -18,5 +18,3 @@ config/features=PackedStringArray("4.7")
 
 window/size/viewport_width=800
 window/size/viewport_height=600
-window/title="Twilight of the Gods"
-window/resizable=false

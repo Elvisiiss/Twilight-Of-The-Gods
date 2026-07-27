@@ -1,0 +1,49 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+Vulkan 1.3.277 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 3050 Laptop GPU
+
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: No loader found for resource: res://true (expected type: unknown)
+   at: _load (core/io/resource_loader.cpp:332)
+ERROR: Failed to instantiate an autoload, can't load from path: true.
+   at: start (main/main.cpp:4529)
+ERROR: res://Scenes/Main.tscn:9 - Parse Error: Unknown tag 'ext_resource' in file.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://Scenes/Main.tscn.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Failed loading scene: res://Scenes/Main.tscn.
+   at: start (main/main.cpp:4763)
